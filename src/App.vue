@@ -1,12 +1,19 @@
 <template>
   <div id="app">
-    <div id="nav">
-      <router-link to="/">Home</router-link> |
-      <router-link to="/about">About</router-link>
-    </div>
-    <router-view />
+    <v-app>
+      <router-view />
+      <VuetifyFooter />
+    </v-app>
   </div>
 </template>
+<script>
+import VuetifyFooter from "@/components/VuetifyFooter.vue";
+export default {
+  components: {
+    VuetifyFooter
+  }
+};
+</script>
 
 <style lang="scss">
 #app {

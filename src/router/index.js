@@ -18,11 +18,33 @@ const routes = [
     // which is lazy-loaded when the route is visited.
     component: () =>
       import(/* webpackChunkName: "about" */ "../views/About.vue")
+  },
+  {
+    path: "/tastaturen",
+    name: "Tastaturen"
+  },
+  {
+    path: "/404",
+    alias: "**",
+    name: "NotFound",
+    component: () =>
+      import(/*webpackChunkName: "NotFound" */ "@/views/NotFound.vue")
   }
 ];
 
 const router = new VueRouter({
+  linkExactActiveClass: "vue-active-class",
+  mode: "history",
   routes
+});
+
+router.beforeEach((to, from, next) => {
+  const exists = routes.find(route => route.name === to.name);
+  if (exists) {
+    next();
+  } else {
+    next({ name: "NotFound" });
+  }
 });
 
 export default router;
