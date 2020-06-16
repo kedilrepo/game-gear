@@ -39,8 +39,11 @@ export default {
       model: {}
     };
   },
-  async created() {
-    this.refreshData();
+  async beforeRouteEnter(to, from, next) {
+    let res = await api.getData("home");
+    next(vm => {
+      vm.data = res;
+    });
   },
   methods: {
     async refreshData() {
