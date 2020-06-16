@@ -15,6 +15,8 @@
       imageUrl="https://via.placeholder.com/150"
       text="asdklajsdbfkajsfb ksajdfhkjashkjasdhfkjasdh fsdjhfsakjd fhjsadhfasjdf Adipisicing id reprehenderit in duis pariatur ipsum duis consequat do tempor tempor excepteur sit minim. Nulla reprehenderit dolor ipsum sunt. Adipisicing duis occaecat sunt id qui ex quis est id quis veniam. Est velit voluptate laboris eiusmod exercitation cillum exercitation ut qui est."
     ></TextWithRightPicture>
+    <div class="loading" v-if="loading">Loading...</div>
+    <div v-for="info in data" :key="info"></div>
   </div>
 </template>
 
@@ -22,12 +24,30 @@
 import TextWithLeftPicture from "@/components/TextWithLeftPicture.vue";
 import TextWithRightPicture from "@/components/TextWithRightPicture.vue";
 import HeaderTitle from "@/components/HeaderTitle.vue";
+import api from "@/api";
 export default {
   name: "Home",
   components: {
     TextWithLeftPicture,
     TextWithRightPicture,
     HeaderTitle
+  },
+  data() {
+    return {
+      loading: false,
+      data: [],
+      model: {}
+    };
+  },
+  async created() {
+    this.refreshData();
+  },
+  methods: {
+    async refreshData() {
+      this.loading = true;
+      this.data = await api.getData("home");
+      this.loading = false;
+    }
   }
 };
 </script>
