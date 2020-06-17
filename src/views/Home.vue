@@ -16,6 +16,7 @@
       text="asdklajsdbfkajsfb ksajdfhkjashkjasdhfkjasdh fsdjhfsakjd fhjsadhfasjdf Adipisicing id reprehenderit in duis pariatur ipsum duis consequat do tempor tempor excepteur sit minim. Nulla reprehenderit dolor ipsum sunt. Adipisicing duis occaecat sunt id qui ex quis est id quis veniam. Est velit voluptate laboris eiusmod exercitation cillum exercitation ut qui est."
     ></TextWithRightPicture>
     <div class="loading" v-if="loading">Loading...</div>
+    <div class="noItems" v-if="!loading && data.length === 0">No data</div>
     <div v-for="info in data" :key="info"></div>
   </div>
 </template>

@@ -2,7 +2,7 @@
 import axios from "axios";
 
 const client = axios.create({
-    baseURL: "http://localhost:8082/",
+    baseURL: "http://localhost:8082",
     json: true,
 });
 
@@ -22,6 +22,6 @@ export default {
             });
     },
     getData(topic) {
-        return this.execute("get", `/${topic}`);
+        return this.execute("get", `/data/${topic}`);
     },
 };
