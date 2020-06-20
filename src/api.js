@@ -1,5 +1,6 @@
 //import Vue from 'vue';
 import axios from "axios";
+const firebase = require("@/firebaseConfig.js");
 
 const client = axios.create({
     baseURL: "http://localhost:8082",
@@ -14,7 +15,7 @@ export default {
                 data,
             })
             .then((req) => {
-                return req.data;
+                return req;
             })
             .catch((error) => {
                 console.log(error);
@@ -23,5 +24,16 @@ export default {
     },
     getData(topic) {
         return this.execute("get", `/data/${topic}`);
+    },
+    async checkUser() {
+        let idToken = await firebase.auth.currentUser
+            .getIdToken( /* forceRefresh */ true)
+
+        .catch(function(error) {
+            console.log(error);
+
+            // Handle error
+        });
+        return this.execute("post", "/admin/user/login", { id_token: idToken });
     },
 };

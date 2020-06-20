@@ -10,8 +10,9 @@
             text
             rounded
             class="my-2"
-            v-on:click="goTo(link)"
-          >{{ link }}</v-btn>
+            v-on:click="goTo(link.url)"
+            >{{ link.name }}</v-btn
+          >
         </div>
         <v-spacer></v-spacer>
         <div>
@@ -43,18 +44,25 @@ export default {
       { iconName: "mdi-facebook", url: "https://facebook.com" },
       { iconName: "mdi-twitter", url: "https://twitter.com/kedilinfo" },
       { iconName: "mdi-linkedin", url: "https://linkedin.com/kedilinfo" },
-      { iconName: "mdi-instagram", url: "https://instagram.com/kedilinfo" }
+      { iconName: "mdi-instagram", url: "https://instagram.com/kedilinfo" },
     ],
-    links: ["Home", "Impressum", "Team", "Services", "Blog", "Contact Us"]
+    links: [
+      { name: "Home", url: "" },
+      { name: "Impressum", url: "impressum" },
+      { name: "Team", url: "team" },
+      { name: "Services", url: "services" },
+      { name: "Blog", url: "blog" },
+      { name: "Contact Us", url: "contact" },
+    ],
   }),
   methods: {
     goTo: function(routeName) {
-      this.$router.push({ name: routeName });
+      this.$router.push("/" + routeName.toLowerCase());
     },
     openNewTab: function(url) {
       window.open(url, "_blank");
-    }
-  }
+    },
+  },
 };
 </script>
 
