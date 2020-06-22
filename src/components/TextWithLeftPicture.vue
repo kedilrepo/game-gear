@@ -106,7 +106,8 @@ $mobileWidth: 700px;
   p {
     color: darkslategrey;
     font-weight: 300;
-    margin-bottom: 0px;
+    margin: 0 10px 0 10px;
+    text-align: left;
 
     @media (min-width: $mobileWidth) {
       margin: 0 0 0 20px;

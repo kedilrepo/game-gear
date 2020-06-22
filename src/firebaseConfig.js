@@ -1,5 +1,6 @@
 import firebase from "firebase";
 import "firebase/auth";
+import store from "./store";
 
 // firebase init goes here
 const config = {
@@ -16,5 +17,9 @@ firebase.initializeApp(config);
 
 const auth = firebase.auth();
 const currentUser = auth.currentUser;
+
+auth.onAuthStateChanged(user => {
+    store.dispatch("fetchUser", user);
+});
 
 export { auth, currentUser };

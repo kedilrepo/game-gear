@@ -1,6 +1,9 @@
 import Vue from "vue";
 import VueRouter from "vue-router";
 import Home from "../views/Home.vue";
+import api from "../api";
+import store from "@/store";
+const firebase = require("@/firebaseConfig.js");
 
 Vue.use(VueRouter);
 
@@ -23,16 +26,68 @@ const routes = [{
         name: "Tastaturen",
     },
     {
+        path: "/dashboard/login",
+        name: "Login",
+        component: () =>
+            import ("../views/Login.vue"),
+    },
+    {
         path: "/dashboard",
         name: "Dashboard",
         component: () =>
-            import ("../views/Login.vue"),
+            import ("../views/Dashboard.vue"),
+
         children: [{
-            path: "login",
-            name: "Login",
+            path: "editPages",
+            name: "EditPage",
             component: () =>
-                import ("../views/Login.vue"),
+                import ("@/views/dashboard/EditPages.vue"),
+            children: [{
+                path: ":page",
+                name: "SelectedPage",
+                props: true,
+            }, ],
         }, ],
+
+        beforeEnter: async(to, from, next) => {
+            /// Try to use store
+            console.log(firebase);
+
+            if ((await firebase.auth.currentUser) != null) {
+                console.log("Trying to use firebase currentUser");
+
+                if (await api.checkUser()) {
+                    next();
+                    return;
+                } else {
+                    next("/dashboard/login");
+                    return;
+                }
+            }
+            if (store != null) {
+                console.log("Trying to use store");
+
+                if ((store.getters.user != null) | (store.getters.user != undefined)) {
+                    console.log("Trying to check loggedIn");
+
+                    console.log(store.getters.user.loggedIn);
+
+                    if (store.getters.user.loggedIn) {
+                        console.log("Logged in via store");
+
+                        if (await api.checkUser()) {
+                            next();
+                            return;
+                        } else {
+                            next("/dashboard/login");
+                            return;
+                        }
+                    }
+                }
+            }
+
+            next("/dashboard/login");
+        },
     },
     {
         path: "/404",

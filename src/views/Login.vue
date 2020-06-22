@@ -14,6 +14,7 @@
                 :rules="emailRules"
                 label="Login"
                 name="login"
+                :disabled="loading"
                 prepend-icon="mdi-account"
                 type="text"
               ></v-text-field>
@@ -24,6 +25,7 @@
                 label="Password"
                 name="password"
                 prepend-icon="mdi-lock"
+                :disabled="loading"
                 :type="showPassword ? 'text' : 'password'"
                 :append-icon="showPassword ? 'mdi-eye' : 'mdi-eye-off'"
                 @click:append="showPassword = !showPassword"
@@ -37,9 +39,13 @@
             >
           </v-card-actions>
         </v-card>
-        <v-alert type="error" v-show="error">
-          Test
-        </v-alert>
+        <v-alert
+          type="error"
+          v-model="error"
+          transition="scale-transition"
+          dismissible
+          >Invalid User</v-alert
+        >
       </v-col>
     </v-row>
   </v-container>
@@ -57,6 +63,7 @@ export default {
       formValid: false,
       showPassword: false,
       error: false,
+      loading: false,
       emailRules: [
         (v) => !!v || "E-mail is required",
         (v) => /.+@.+/.test(v) || "E-mail must be valid",
@@ -65,24 +72,38 @@ export default {
   },
   methods: {
     login() {
-      console.log(fb.auth);
+      this.loading = true;
       fb.auth
         .signInWithEmailAndPassword(this.email, this.pw)
         .then(async () => {
-          console.log("hihihi");
           try {
-            await api.checkUser();
-          } catch {
-            alert("Something wrong!");
+            console.log("Ready to check at Backend");
+
+            let success = await api.checkUser();
+            console.log(success);
+
+            if (success) {
+              this.$router.push("/dashboard");
+            } else {
+              this.wrongLogin();
+            }
+          } catch (e) {
+            console.log(e);
+
+            this.wrongLogin();
           }
         })
         .catch(function(error) {
           // Handle Errors here.
           var errorCode = error.code;
           var errorMessage = error.message;
-          alert(errorMessage);
+          this.wrongLogin();
           console.log(`Error ${errorCode} threw message ${errorMessage}`);
         });
+    },
+    wrongLogin() {
+      this.loading = false;
+      this.error = true;
     },
   },
 };

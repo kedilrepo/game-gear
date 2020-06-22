@@ -1,7 +1,7 @@
 <template>
   <div id="app">
     <v-app>
-      <router-view />
+      <router-view :key="$route.path" />
       <VuetifyFooter />
     </v-app>
   </div>
@@ -10,8 +10,8 @@
 import VuetifyFooter from "@/components/VuetifyFooter.vue";
 export default {
   components: {
-    VuetifyFooter
-  }
+    VuetifyFooter,
+  },
 };
 </script>
 
