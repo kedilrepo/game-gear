@@ -42,11 +42,6 @@ const routes = [{
             name: "EditPage",
             component: () =>
                 import ("@/views/dashboard/EditPages.vue"),
-            children: [{
-                path: ":page",
-                name: "SelectedPage",
-                props: true,
-            }, ],
         }, ],
 
         beforeEnter: async(to, from, next) => {
