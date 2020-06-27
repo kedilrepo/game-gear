@@ -11,7 +11,6 @@ import Content from "@/components/Content";
 import api from "@/api";
 
 export default {
-  name: "Home",
   components: {
     Content
   },
@@ -19,20 +18,32 @@ export default {
     return {
       loading: false,
       data: [],
-      model: {}
+      model: {},
+      pagename: ""
     };
   },
+  props: {},
   async beforeRouteEnter(to, from, next) {
-    let res = await api.getData("home");
-    console.log(res);
-    next(vm => {
-      vm.data = res.data;
-    });
+    console.log("Rendering now");
+    console.log(this);
+    console.log(to);
+    let page = to.fullPath.substr(1);
+
+    let res = await api.getData(page);
+    if (res.status === 202) {
+      console.log(res);
+      next(vm => {
+        vm.data = res.data;
+        vm.pagename = page;
+      });
+    } else {
+      next("/404");
+    }
   },
   methods: {
     async refreshData() {
       this.loading = true;
-      this.data = await api.getData("home");
+      this.data = await api.getData(this.pagename);
       this.loading = false;
     }
   }

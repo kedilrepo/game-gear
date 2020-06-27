@@ -15,15 +15,8 @@ const routes = [{
     {
         path: "/about",
         name: "About",
-        // route level code-splitting
-        // this generates a separate chunk (about.[hash].js) for this route
-        // which is lazy-loaded when the route is visited.
         component: () =>
-            import ( /* webpackChunkName: "about" */ "../views/About.vue"),
-    },
-    {
-        path: "/tastaturen",
-        name: "Tastaturen",
+            import ( /* webpackChunkName: "about" */ "@/views/About.vue"),
     },
     {
         path: "/dashboard/login",
@@ -35,13 +28,16 @@ const routes = [{
         path: "/dashboard",
         name: "Dashboard",
         component: () =>
-            import ("../views/Dashboard.vue"),
+            import ( /*webpackChunkName: "Dashboard" */ "@/views/Dashboard.vue"),
 
         children: [{
             path: "editPages",
             name: "EditPage",
             component: () =>
-                import ("@/views/dashboard/EditPages.vue"),
+                import (
+                    /*webpackChunkName: "PageEditor" */
+                    "@/views/dashboard/EditPages.vue"
+                ),
         }, ],
 
         beforeEnter: async(to, from, next) => {
@@ -86,10 +82,15 @@ const routes = [{
     },
     {
         path: "/404",
-        alias: "**",
         name: "NotFound",
         component: () =>
             import ( /*webpackChunkName: "NotFound" */ "@/views/NotFound.vue"),
+    },
+    {
+        path: "*",
+        name: "Base",
+        component: () =>
+            import ( /*webpackChunkName: "Base" */ "@/views/Base.vue"),
     },
 ];
 

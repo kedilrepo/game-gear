@@ -48,11 +48,9 @@
           >{{pageCreationErrorText}}</v-alert>
         </v-dialog>
       </v-row>
-      <v-flex>
-        <v-container class="fill-height" fluid>
-          <PageDisplayer :page="selectedPage"></PageDisplayer>
-        </v-container>
-      </v-flex>
+      <v-container class="fill-height" fluid>
+        <PageDisplayer :page="selectedPage"></PageDisplayer>
+      </v-container>
     </v-col>
   </v-layout>
 </template>

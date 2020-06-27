@@ -14,6 +14,7 @@ const config = {
     measurementId: "G-032V7H09QP",
 };
 firebase.initializeApp(config);
+firebase.analytics();
 
 const auth = firebase.auth();
 const currentUser = auth.currentUser;

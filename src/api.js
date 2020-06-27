@@ -39,14 +39,38 @@ export default {
     },
     async deletePage(pageID) {
         await this.setAuthHeader();
-        return await this.execute("delete", "/admin/manage/pages", {
+        return await this.execute("post", "/admin/manage/pages/delete", {
             pageID: pageID,
         });
     },
     async getStructures(pageName) {
         await this.setAuthHeader();
-        return await this.execute("post", "/admin/manage/structures", {
+        let res = await this.execute("post", "/admin/manage/structures", {
             pageName: pageName,
+        });
+        console.log(res);
+
+        return res;
+    },
+    async updateStructure(structure) {
+        await this.setAuthHeader();
+        return await this.execute("post", "/admin/manage/structures/edit", {
+            structureId: structure.structureId,
+            content: structure.content,
+        });
+    },
+    async createStructure(page, position, content) {
+        await this.setAuthHeader();
+        return await this.execute("post", "/admin/manage/insert", {
+            page: page,
+            position: position,
+            content: content,
+        });
+    },
+    async deleteStructure(structureId) {
+        await this.setAuthHeader();
+        return await this.execute("post", "/admin/manage/delete", {
+            structure_id: structureId,
         });
     },
     async checkUser() {
