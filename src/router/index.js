@@ -31,14 +31,29 @@ const routes = [{
             import ( /*webpackChunkName: "Dashboard" */ "@/views/Dashboard.vue"),
 
         children: [{
-            path: "editPages",
-            name: "EditPage",
-            component: () =>
-                import (
-                    /*webpackChunkName: "PageEditor" */
-                    "@/views/dashboard/EditPages.vue"
-                ),
-        }, ],
+                path: "editPages",
+                name: "EditPage",
+                component: () =>
+                    import (
+                        /*webpackChunkName: "PageEditor" */
+                        "@/views/dashboard/EditPages.vue"
+                    ),
+            },
+            {
+                path: "users",
+                name: "Users",
+                component: () =>
+                    import ( /*webpackChunkName: "Users" */ "@/views/dashboard/Users.vue")
+            },
+
+            {
+                path: 'home',
+                name: 'Dashboard-Home',
+                component: () =>
+                    import ( /*webpackChunkName: "Dashboard-Home" */ '@/views/dashboard/Home.vue'),
+            },
+
+        ],
 
         beforeEnter: async(to, from, next) => {
             /// Try to use store

@@ -74,6 +74,22 @@ export default {
             structure_id: structureId,
         });
     },
+    async addUser(userId) {
+        await this.setAuthHeader();
+        return await this.execute("put", "/admin/user/manage", {
+            user_id: userId
+        });
+    },
+    async removeUser(userId) {
+        await this.setAuthHeader();
+        return await this.execute("post", "/admin/user/manage", {
+            user_id: userId
+        });
+    },
+    async getUsers() {
+        await this.setAuthHeader();
+        return await this.execute("get", "/admin/user/manage");
+    },
     async checkUser() {
         let idToken = await this.getIdToken();
 

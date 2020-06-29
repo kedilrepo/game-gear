@@ -16,12 +16,7 @@
       <v-divider></v-divider>
 
       <v-list dense>
-        <v-list-item
-          v-for="item in items"
-          :key="item.title"
-          link
-          @click="goTo(item.url)"
-        >
+        <v-list-item v-for="item in items" :key="item.title" link @click="goTo(item.url)">
           <v-list-item-icon>
             <v-icon>{{ item.icon }}</v-icon>
           </v-list-item-icon>
@@ -56,26 +51,26 @@ export default {
         {
           title: "Home",
           icon: "mdi-home-city",
-          url: "/dashboard/home",
+          url: "/dashboard/home"
         },
         {
-          title: "My Account",
+          title: "Users",
           icon: "mdi-account",
-          url: "/dashboard/account",
+          url: "/dashboard/users"
         },
         {
           title: "Pages",
           icon: "mdi-book-open-page-variant",
-          url: "/dashboard/editPages",
-        },
+          url: "/dashboard/editPages"
+        }
       ],
-      mini: true,
+      mini: true
     };
   },
   computed: {
     ...mapGetters({
-      user: "user",
-    }),
+      user: "user"
+    })
   },
   methods: {
     signOut() {
@@ -84,14 +79,14 @@ export default {
         .signOut()
         .then(() => {
           this.$router.replace({
-            name: "Home",
+            name: "Home"
           });
         });
     },
     goTo: function(routeName) {
       this.$router.push(routeName.toLowerCase());
-    },
-  },
+    }
+  }
 };
 </script>
 
