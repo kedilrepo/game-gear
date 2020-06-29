@@ -44,6 +44,12 @@
       <div v-else-if="item.content.type == 'textnopicture'">
         <EditTextNoPicture v-model="value[index]"></EditTextNoPicture>
       </div>
+      <div v-else-if="item.content.type == 'textnopicture'">
+        <EditTextNoPicture v-model="value[index]"></EditTextNoPicture>
+      </div>
+      <div v-else-if="item.content.type == 'ad'">
+        <EditAd v-model="value[index]"></EditAd>
+      </div>
       <v-btn color="primary" dark @click="openMenu(index + 1)">Insert Structure</v-btn>
     </div>
   </div>
@@ -54,6 +60,7 @@ import EditTextLeftPicture from "@/components/dashboard/editcomponents/EditTextL
 import EditTextRightPicture from "@/components/dashboard/editcomponents/EditTextRightPicture.vue";
 import EditTextNoPicture from "@/components/dashboard/editcomponents/EditTextNoPicture.vue";
 import EditHeaderTitle from "@/components/dashboard/editcomponents/EditHeaderTitle.vue";
+import EditAd from "@/components/dashboard/editcomponents/EditAd.vue";
 
 import api from "@/api";
 import EmptyModels from "@/classes/emptyModels";
@@ -62,7 +69,8 @@ export default {
     EditTextLeftPicture,
     EditTextRightPicture,
     EditTextNoPicture,
-    EditHeaderTitle
+    EditHeaderTitle,
+    EditAd
   },
   props: {
     value: [],
@@ -79,7 +87,8 @@ export default {
         "headertitle",
         "textnopicture",
         "textwithleftpicture",
-        "textwithrightpicture"
+        "textwithrightpicture",
+        "ad"
       ],
       selectedPossibility: ""
     };
@@ -120,6 +129,8 @@ export default {
           structure = EmptyModels.textleftpicture();
         } else if (this.selectedPossibility === "textwithrightpicture") {
           structure = EmptyModels.textrightpicture();
+        } else if (this.selectedPossibility === "ad") {
+          structure = EmptyModels.ad();
         } else {
           this.structureCreationErrorText =
             "Please select a Structure-Type (error 2)";

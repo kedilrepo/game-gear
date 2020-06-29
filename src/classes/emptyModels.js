@@ -30,4 +30,9 @@ export default {
             type: "textwithrightpicture",
         };
     },
+    ad() {
+        return {
+            type: "ad"
+        };
+    },
 };

@@ -72,7 +72,7 @@ img {
   justify-content: space-between;
 
   @media (min-width: $mobileWidth) {
-    padding: 20px 0 20px 0;
+    //padding: 20px 0 20px 0;
   }
 }
 
@@ -85,7 +85,7 @@ img {
   width: 100%;
 
   @media (min-width: $mobileWidth) {
-    border-radius: 25px;
+    //border-radius: 25px;
     max-width: 1140px;
     padding: 20px;
     transition: 0.5s;
