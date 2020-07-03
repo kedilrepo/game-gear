@@ -1,0 +1,51 @@
+<template>
+  <div class="background">
+    <div class="content">
+      <v-alert border="left" color="orange" dark class="leftTextAlign" type="info">
+        <p class="zeromargin">
+          <span v-html="info"></span>
+        </p>
+      </v-alert>
+    </div>
+  </div>
+</template>
+
+<script>
+export default {
+  props: {
+    info: String
+  }
+};
+</script>
+
+<style lang="scss">
+$mobileWidth: 700px;
+
+.leftTextAlign {
+  text-align: center;
+
+  @media (min-width: $mobileWidth) {
+    text-align: left;
+  }
+}
+
+.verticalAlign {
+  @media (min-width: $mobileWidth) {
+    vertical-align: middle;
+  }
+}
+
+.alignCorrect {
+  @media (min-width: $mobileWidth) {
+    display: flex;
+  }
+}
+
+.bigIcon {
+  font-size: 500px;
+}
+
+.zeromargin {
+  margin-bottom: 0;
+}
+</style>

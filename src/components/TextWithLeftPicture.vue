@@ -7,7 +7,7 @@
         </div>
         <div class="details">
           <img :src="imageUrl" />
-          <p>{{ text }}</p>
+          <p><span v-html="text"/></p>
         </div>
       </v-container>
     </div>

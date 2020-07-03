@@ -11,8 +11,7 @@
             rounded
             class="my-2"
             v-on:click="goTo(link.url)"
-            >{{ link.name }}</v-btn
-          >
+          >{{ link.name }}</v-btn>
         </div>
         <v-spacer></v-spacer>
         <div>
@@ -38,13 +37,14 @@
 </template>
 
 <script>
+import { mdiFacebook, mdiTwitter, mdiLinkedin, mdiInstagram } from "@mdi/js";
 export default {
   data: () => ({
     icons: [
-      { iconName: "mdi-facebook", url: "https://facebook.com" },
-      { iconName: "mdi-twitter", url: "https://twitter.com/kedilinfo" },
-      { iconName: "mdi-linkedin", url: "https://linkedin.com/kedilinfo" },
-      { iconName: "mdi-instagram", url: "https://instagram.com/kedilinfo" },
+      { iconName: mdiFacebook, url: "https://facebook.com" },
+      { iconName: mdiTwitter, url: "https://twitter.com/kedilinfo" },
+      { iconName: mdiLinkedin, url: "https://linkedin.com/kedilinfo" },
+      { iconName: mdiInstagram, url: "https://instagram.com/kedilinfo" }
     ],
     links: [
       { name: "Home", url: "" },
@@ -52,8 +52,8 @@ export default {
       { name: "Team", url: "team" },
       { name: "Services", url: "services" },
       { name: "Blog", url: "blog" },
-      { name: "Contact Us", url: "contact" },
-    ],
+      { name: "Contact Us", url: "contact" }
+    ]
   }),
   methods: {
     goTo: function(routeName) {
@@ -61,8 +61,8 @@ export default {
     },
     openNewTab: function(url) {
       window.open(url, "_blank");
-    },
-  },
+    }
+  }
 };
 </script>
 

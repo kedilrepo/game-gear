@@ -1,16 +1,26 @@
 <template>
   <div id="app">
     <v-app>
+      <!-- <NavBar /> -->
       <router-view :key="$route.path" />
       <VuetifyFooter />
     </v-app>
+    <CookieConsent
+      message="Diese Webseite nutzt Cookies, um Ihnen ein bestmögliches Erlebnis zu bieten."
+      linkLabel="Wie genau?"
+      buttonLabel="Okay"
+    />
   </div>
 </template>
 <script>
 import VuetifyFooter from "@/components/VuetifyFooter.vue";
+// import NavBar from "@/components/NavigationBar.vue";
+import CookieConsent from "@/components/CookieConsent.vue";
 export default {
   components: {
-    VuetifyFooter
+    // NavBar,
+    VuetifyFooter,
+    CookieConsent
   }
 };
 </script>
@@ -113,5 +123,9 @@ img {
     display: flex;
     justify-content: space-between;
   }
+}
+
+a {
+  color: orange;
 }
 </style>

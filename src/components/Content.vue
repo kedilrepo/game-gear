@@ -20,6 +20,12 @@
       <div v-else-if="item.type == 'ad'">
         <Ad></Ad>
       </div>
+      <div v-else-if="item.type == 'infobox'">
+        <Infobox :info="item.info"></Infobox>
+      </div>
+      <div v-else-if="item.type == 'comparisontable'">
+        <ComparisonTable :json="item.json"></ComparisonTable>
+      </div>
     </div>
   </section>
 </template>
@@ -29,13 +35,17 @@ import TextWithRightPicture from "@/components/TextWithRightPicture.vue";
 import TextNoPicture from "@/components/TextNoPicture.vue";
 import HeaderTitle from "@/components/HeaderTitle.vue";
 import Ad from "@/components/Ad.vue";
+import Infobox from "@/components/Infobox.vue";
+import ComparisonTable from "@/components/ComparisonTable.vue";
 export default {
   components: {
     TextWithLeftPicture,
     TextWithRightPicture,
     TextNoPicture,
     HeaderTitle,
-    Ad
+    Ad,
+    Infobox,
+    ComparisonTable
   },
   props: {
     data: {

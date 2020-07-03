@@ -7,7 +7,7 @@
         </div>
         <div class="details">
           <div class="leftTextAlign">
-            <p>{{ text }}</p>
+            <p><span v-html="text" /></p>
           </div>
           <img :src="imageUrl" />
         </div>

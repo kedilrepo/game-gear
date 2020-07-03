@@ -35,4 +35,16 @@ export default {
             type: "ad"
         };
     },
+    infobox() {
+        return {
+            info: "",
+            type: "infobox"
+        }
+    },
+    comparisonTable() {
+        return {
+            type: "comparisontable",
+            json: '{"tableName":"","columnTitles":[],"rows":[]}'
+        }
+    }
 };

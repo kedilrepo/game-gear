@@ -4,13 +4,17 @@
       <div class="imageWrapper">
         <v-img height="400px" :src="titlepictureURL">
           <div class="bigTitle">
-            <h1>{{ bigTitle }}</h1>
+            <h1>
+              <span v-html="bigTitle" />
+            </h1>
           </div>
         </v-img>
       </div>
       <div class="cleanwrapper">
         <div class="subtitle" v-if="subTitle != undefined">
-          <h2>{{subTitle}}</h2>
+          <h2>
+            <span v-html="subTitle" />
+          </h2>
         </div>
       </div>
       <!-- <img class="image" :src="titlepictureURL" /> -->

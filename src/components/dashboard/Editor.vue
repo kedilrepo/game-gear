@@ -50,6 +50,12 @@
       <div v-else-if="item.content.type == 'ad'">
         <EditAd v-model="value[index]"></EditAd>
       </div>
+      <div v-else-if="item.content.type == 'infobox'">
+        <EditInfobox v-model="value[index]"></EditInfobox>
+      </div>
+      <div v-else-if="item.content.type == 'comparisontable'">
+        <EditComparisonTable v-model="value[index]"></EditComparisonTable>
+      </div>
       <v-btn color="primary" dark @click="openMenu(index + 1)">Insert Structure</v-btn>
     </div>
   </div>
@@ -61,6 +67,8 @@ import EditTextRightPicture from "@/components/dashboard/editcomponents/EditText
 import EditTextNoPicture from "@/components/dashboard/editcomponents/EditTextNoPicture.vue";
 import EditHeaderTitle from "@/components/dashboard/editcomponents/EditHeaderTitle.vue";
 import EditAd from "@/components/dashboard/editcomponents/EditAd.vue";
+import EditInfobox from "@/components/dashboard/editcomponents/EditInfobox.vue";
+import EditComparisonTable from "@/components/dashboard/editcomponents/EditComparisonTable.vue";
 
 import api from "@/api";
 import EmptyModels from "@/classes/emptyModels";
@@ -70,7 +78,9 @@ export default {
     EditTextRightPicture,
     EditTextNoPicture,
     EditHeaderTitle,
-    EditAd
+    EditAd,
+    EditInfobox,
+    EditComparisonTable
   },
   props: {
     value: [],
@@ -88,7 +98,9 @@ export default {
         "textnopicture",
         "textwithleftpicture",
         "textwithrightpicture",
-        "ad"
+        "ad",
+        "infobox",
+        "comparisontable"
       ],
       selectedPossibility: ""
     };
@@ -131,6 +143,10 @@ export default {
           structure = EmptyModels.textrightpicture();
         } else if (this.selectedPossibility === "ad") {
           structure = EmptyModels.ad();
+        } else if (this.selectedPossibility === "infobox") {
+          structure = EmptyModels.infobox();
+        } else if (this.selectedPossibility === "comparisontable") {
+          structure = EmptyModels.comparisonTable();
         } else {
           this.structureCreationErrorText =
             "Please select a Structure-Type (error 2)";

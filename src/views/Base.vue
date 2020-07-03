@@ -2,6 +2,7 @@
   <div class="home">
     <div class="loading" v-if="loading">Loading...</div>
     <div class="noItems" v-if="!loading && data.length === 0">No data</div>
+    <ComparisonTable />
     <Content :data="data"></Content>
   </div>
 </template>
@@ -9,10 +10,12 @@
 <script>
 import Content from "@/components/Content";
 import api from "@/api";
+import ComparisonTable from "@/components/ComparisonTable.vue";
 
 export default {
   components: {
-    Content
+    Content,
+    ComparisonTable
   },
   data() {
     return {

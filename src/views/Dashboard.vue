@@ -3,13 +3,13 @@
     <v-navigation-drawer v-model="drawer" :mini-variant.sync="mini" permanent>
       <v-list-item class="px-2">
         <v-list-item-icon>
-          <v-icon>mdi-face-profile</v-icon>
+          <v-icon>{{accountBox}}</v-icon>
         </v-list-item-icon>
 
         <v-list-item-title>{{ user.data.email }}</v-list-item-title>
 
         <v-btn icon @click.stop="mini = !mini">
-          <v-icon>mdi-chevron-left</v-icon>
+          <v-icon>{{chevronLeft}}</v-icon>
         </v-btn>
       </v-list-item>
 
@@ -29,7 +29,7 @@
 
       <v-list-item link justify-end height="20px" @click="signOut()">
         <v-list-item-icon>
-          <v-icon>mdi-login</v-icon>
+          <v-icon>{{logout}}</v-icon>
         </v-list-item-icon>
         <v-list-item-content>
           <v-list-item-title>Logout</v-list-item-title>
@@ -41,6 +41,14 @@
 </template>
 
 <script>
+import {
+  mdiHomeCity,
+  mdiAccount,
+  mdiBookOpenPageVariant,
+  mdiAccountBox,
+  mdiChevronLeft,
+  mdiLogout
+} from "@mdi/js";
 import { mapGetters } from "vuex";
 import firebase from "firebase";
 export default {
@@ -50,21 +58,24 @@ export default {
       items: [
         {
           title: "Home",
-          icon: "mdi-home-city",
+          icon: mdiHomeCity,
           url: "/dashboard/home"
         },
         {
           title: "Users",
-          icon: "mdi-account",
+          icon: mdiAccount,
           url: "/dashboard/users"
         },
         {
           title: "Pages",
-          icon: "mdi-book-open-page-variant",
+          icon: mdiBookOpenPageVariant,
           url: "/dashboard/editPages"
         }
       ],
-      mini: true
+      mini: true,
+      accountBox: mdiAccountBox,
+      chevronLeft: mdiChevronLeft,
+      logout: mdiLogout
     };
   },
   computed: {
