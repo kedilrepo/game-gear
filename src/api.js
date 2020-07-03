@@ -4,8 +4,8 @@ const firebase = require("@/firebaseConfig.js");
 import store from "@/store";
 
 const client = axios.create({
-    //baseURL: "https://api.game-gear.kedil.de",
-    baseURL: "http://localhost:8082",
+    baseURL: "https://api.game-gear.kedil.de",
+    //baseURL: "http://localhost:8082",
     json: true,
 });
 
