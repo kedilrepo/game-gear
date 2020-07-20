@@ -2,7 +2,6 @@
   <div class="home">
     <div class="loading" v-if="loading">Loading...</div>
     <div class="noItems" v-if="!loading && data.length === 0">No data</div>
-    <ComparisonTable />
     <Content :data="data"></Content>
   </div>
 </template>
@@ -10,12 +9,10 @@
 <script>
 import Content from "@/components/Content";
 import api from "@/api";
-import ComparisonTable from "@/components/ComparisonTable.vue";
 
 export default {
   components: {
-    Content,
-    ComparisonTable
+    Content
   },
   data() {
     return {
@@ -44,20 +41,15 @@ export default {
     }
   },
   async beforeRouteUpdate(to, from, next) {
-    console.log("Before Route UPDATE");
     let page = to.fullPath.substr(1);
 
     let res = await api.getData(page);
     this.data = res.data;
 
     if (res.status === 202) {
-      console.log(res.data);
       this.data = res.data;
-      console.log(this.data);
-
       this.pagename = page;
       next();
-      console.log(this.data);
     } else {
       next("/404");
     }

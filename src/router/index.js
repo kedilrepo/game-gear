@@ -5,6 +5,9 @@ import api from "../api";
 import store from "@/store";
 const firebase = require("@/firebaseConfig.js");
 
+import Nprogress from "nprogress";
+import "nprogress/nprogress.css";
+
 Vue.use(VueRouter);
 
 const routes = [{
@@ -43,16 +46,18 @@ const routes = [{
                 path: "users",
                 name: "Users",
                 component: () =>
-                    import ( /*webpackChunkName: "Users" */ "@/views/dashboard/Users.vue")
+                    import ( /*webpackChunkName: "Users" */ "@/views/dashboard/Users.vue"),
             },
 
             {
-                path: 'home',
-                name: 'Dashboard-Home',
+                path: "home",
+                name: "Dashboard-Home",
                 component: () =>
-                    import ( /*webpackChunkName: "Dashboard-Home" */ '@/views/dashboard/Home.vue'),
+                    import (
+                        /*webpackChunkName: "Dashboard-Home" */
+                        "@/views/dashboard/Home.vue"
+                    ),
             },
-
         ],
 
         beforeEnter: async(to, from, next) => {
@@ -113,6 +118,17 @@ const router = new VueRouter({
     linkExactActiveClass: "vue-active-class",
     mode: "history",
     routes,
+});
+
+router.beforeResolve((to, from, next) => {
+    if (to.name) {
+        Nprogress.start();
+    }
+    next();
+});
+
+router.afterEach(() => {
+    Nprogress.done();
 });
 
 export default router;

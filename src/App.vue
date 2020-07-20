@@ -2,7 +2,7 @@
   <div id="app">
     <v-app>
       <!-- <NavBar /> -->
-      <router-view :key="$route.path" />
+      <router-view />
       <VuetifyFooter />
     </v-app>
     <CookieConsent
