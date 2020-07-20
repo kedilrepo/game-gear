@@ -5,6 +5,7 @@ export default {
             background_image: "",
             sub_title: "",
             type: "headertitle",
+            light_title: true,
         };
     },
     textnopicture() {
@@ -32,19 +33,19 @@ export default {
     },
     ad() {
         return {
-            type: "ad"
+            type: "ad",
         };
     },
     infobox() {
         return {
             info: "",
-            type: "infobox"
-        }
+            type: "infobox",
+        };
     },
     comparisonTable() {
         return {
             type: "comparisontable",
-            json: '{"tableName":"","columnTitles":[],"rows":[]}'
-        }
-    }
+            json: '{"tableName":"","columnTitles":[],"rows":[]}',
+        };
+    },
 };

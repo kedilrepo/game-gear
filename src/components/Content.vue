@@ -6,6 +6,7 @@
           :bigTitle="item.title"
           :titlepictureURL="item.background_image"
           :subTitle="item.sub_title"
+          :lightTitle="item.light_title"
         ></HeaderTitle>
       </div>
       <div v-else-if="item.type == 'textwithleftpicture'">

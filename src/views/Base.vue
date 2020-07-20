@@ -43,6 +43,25 @@ export default {
       next("/404");
     }
   },
+  async beforeRouteUpdate(to, from, next) {
+    console.log("Before Route UPDATE");
+    let page = to.fullPath.substr(1);
+
+    let res = await api.getData(page);
+    this.data = res.data;
+
+    if (res.status === 202) {
+      console.log(res.data);
+      this.data = res.data;
+      console.log(this.data);
+
+      this.pagename = page;
+      next();
+      console.log(this.data);
+    } else {
+      next("/404");
+    }
+  },
   methods: {
     async refreshData() {
       this.loading = true;

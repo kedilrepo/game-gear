@@ -3,7 +3,12 @@
     <div class="headertitle">
       <div class="imageWrapper">
         <v-img height="400px" :src="titlepictureURL">
-          <div class="bigTitle">
+          <div v-if="lightTitle" class="bigTitle titleLight">
+            <h1>
+              <span v-html="bigTitle" />
+            </h1>
+          </div>
+          <div v-else class="bigTitle titleDark">
             <h1>
               <span v-html="bigTitle" />
             </h1>
@@ -30,7 +35,8 @@ export default {
       type: String,
       required: true
     },
-    subTitle: String
+    subTitle: String,
+    lightTitle: Boolean
   }
 };
 </script>
@@ -49,13 +55,20 @@ $mobileWidth: 700px;
   margin-left: 10px;
   top: 320px;
   left: 16px;
-  color: whitesmoke;
   transition: 0.5s;
 
   @media (min-width: $mobileWidth) {
     top: 270px;
     transition: 0.5s;
   }
+}
+
+.titleLight {
+  color: whitesmoke;
+}
+
+.titleDark {
+  color: darkslategrey;
 }
 
 .cleanwrapper {

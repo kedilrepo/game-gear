@@ -4,8 +4,8 @@ const firebase = require("@/firebaseConfig.js");
 import store from "@/store";
 
 const client = axios.create({
-    baseURL: "https://api.game-gear.kedil.de",
-    //baseURL: "http://localhost:8082",
+    //baseURL: "https://api.game-gear.kedil.de",
+    baseURL: "http://localhost:8082",
     json: true,
 });
 
@@ -26,7 +26,7 @@ export default {
             });
     },
     async getData(topic) {
-        return await this.execute("get", `/data/${topic}`);
+        return await this.execute("post", `/data/`, { pageName: topic });
     },
     async getPages() {
         await this.setAuthHeader();
@@ -77,13 +77,13 @@ export default {
     async addUser(userId) {
         await this.setAuthHeader();
         return await this.execute("put", "/admin/user/manage", {
-            user_id: userId
+            user_id: userId,
         });
     },
     async removeUser(userId) {
         await this.setAuthHeader();
         return await this.execute("post", "/admin/user/manage", {
-            user_id: userId
+            user_id: userId,
         });
     },
     async getUsers() {

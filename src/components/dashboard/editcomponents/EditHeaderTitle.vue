@@ -6,6 +6,7 @@
     </v-row>
     <v-form>
       <v-text-field v-model="value.content.title" counter="300" label="Title"></v-text-field>
+      <v-checkbox v-model="value.content.light_title" label="Light"></v-checkbox>
       <v-text-field
         v-model="value.content.background_image"
         counter="300"

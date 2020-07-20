@@ -29,6 +29,13 @@ export default {
       vm.data = res.data;
     });
   },
+  async beforeRouteUpdate(to, from, next) {
+    console.log("Before Route UPDATE");
+
+    let res = await api.getData("home");
+    this.data = res.data;
+    next();
+  },
   methods: {
     async refreshData() {
       this.loading = true;

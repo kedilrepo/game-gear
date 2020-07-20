@@ -5,7 +5,7 @@
         <div class="title">
           <h1>{{ jsonAsJson.tableName }}</h1>
         </div>
-        <v-simple-table height="400px">
+        <v-simple-table max-height="400px">
           <template v-slot:default>
             <thead>
               <th class="text-left" v-for="title in jsonAsJson.columnTitles" :key="title.id">
