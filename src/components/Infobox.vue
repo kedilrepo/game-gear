@@ -1,7 +1,7 @@
 <template>
   <div class="background">
     <div class="content">
-      <v-alert border="left" color="orange" dark class="leftTextAlign" type="info">
+      <v-alert border="left" color="#167362" dark class="leftTextAlign" type="info">
         <p class="zeromargin">
           <span v-html="info"></span>
         </p>
@@ -47,5 +47,6 @@ $mobileWidth: 700px;
 
 .zeromargin {
   margin-bottom: 0;
+  color: whitesmoke;
 }
 </style>

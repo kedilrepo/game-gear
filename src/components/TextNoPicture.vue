@@ -6,7 +6,9 @@
           <h1>{{ title }}</h1>
         </div>
         <div class="details">
-          <p><span v-html="text" /></p>
+          <p>
+            <span v-html="text" />
+          </p>
         </div>
       </v-container>
     </div>

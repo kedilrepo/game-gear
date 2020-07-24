@@ -1,7 +1,7 @@
 <template>
   <v-footer dark padless>
     <v-card class="flex" flat tile>
-      <v-card-title class="teal">
+      <v-card-title :style="footerStyle">
         <div>
           <v-btn
             v-for="link in links"
@@ -29,7 +29,7 @@
       </v-card-title>
 
       <v-card-text class="py-2 white--text text-center">
-        <strong>GameGear</strong>
+        <strong>{{ appName }}</strong>
         - {{ new Date().getFullYear() }}
       </v-card-text>
     </v-card>
@@ -37,23 +37,14 @@
 </template>
 
 <script>
-import { mdiFacebook, mdiTwitter, mdiLinkedin, mdiInstagram } from "@mdi/js";
+import Colors from "@/colors.js";
+import GeneralConfig from "@/GeneralConfig.js";
+
 export default {
   data: () => ({
-    icons: [
-      { iconName: mdiFacebook, url: "https://facebook.com" },
-      { iconName: mdiTwitter, url: "https://twitter.com/kedilinfo" },
-      { iconName: mdiLinkedin, url: "https://linkedin.com/kedilinfo" },
-      { iconName: mdiInstagram, url: "https://instagram.com/kedilinfo" }
-    ],
-    links: [
-      { name: "Home", url: "" },
-      { name: "Impressum", url: "impressum" },
-      { name: "Team", url: "team" },
-      { name: "Services", url: "services" },
-      { name: "Blog", url: "blog" },
-      { name: "Contact Us", url: "contact" }
-    ]
+    icons: GeneralConfig.footerIcons,
+    links: GeneralConfig.footerLinks,
+    appName: GeneralConfig.appTitle
   }),
   methods: {
     goTo: function(routeName) {
@@ -62,8 +53,19 @@ export default {
     openNewTab: function(url) {
       window.open(url, "_blank");
     }
+  },
+  computed: {
+    footerStyle: function() {
+      return `background-color: ${Colors.footerColor} !important;
+  border-color: ${Colors.footerColor} !important;`;
+    }
   }
 };
 </script>
 
-<style></style>
+<style>
+.titleCard {
+  background-color: lightskyblue !important;
+  border-color: lightskyblue !important;
+}
+</style>

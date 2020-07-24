@@ -1,7 +1,7 @@
 <template>
   <div id="app">
     <v-app>
-      <!-- <NavBar /> -->
+      <NavBar />
       <router-view />
       <VuetifyFooter />
     </v-app>
@@ -14,11 +14,11 @@
 </template>
 <script>
 import VuetifyFooter from "@/components/VuetifyFooter.vue";
-// import NavBar from "@/components/NavigationBar.vue";
+import NavBar from "@/components/NavigationBar.vue";
 import CookieConsent from "@/components/CookieConsent.vue";
 export default {
   components: {
-    // NavBar,
+    NavBar,
     VuetifyFooter,
     CookieConsent
   }

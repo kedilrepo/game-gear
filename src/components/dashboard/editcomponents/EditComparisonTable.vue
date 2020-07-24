@@ -1,6 +1,6 @@
 <template>
   <v-col>
-    <v-dialog v-model="editingTable" persistent max-width="600px">
+    <v-dialog v-model="editingTable" persistent max-width="1200px">
       <v-card>
         <v-card-title>
           <span class="headline">Edit Table</span>
