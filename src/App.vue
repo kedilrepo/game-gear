@@ -28,6 +28,10 @@ export default {
 <style lang="scss">
 $mobileWidth: 700px;
 
+#nprogress .bar {
+  background: rgb(34, 221, 112) !important;
+}
+
 #app {
   font-family: Avenir, Helvetica, Arial, sans-serif;
   -webkit-font-smoothing: antialiased;

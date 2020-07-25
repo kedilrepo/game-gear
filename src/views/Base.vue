@@ -24,14 +24,10 @@ export default {
   },
   props: {},
   async beforeRouteEnter(to, from, next) {
-    console.log("Rendering now");
-    console.log(this);
-    console.log(to);
     let page = to.fullPath.substr(1);
 
     let res = await api.getData(page);
     if (res.status === 202) {
-      console.log(res);
       next(vm => {
         vm.data = res.data;
         vm.pagename = page;

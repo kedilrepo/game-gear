@@ -3,7 +3,7 @@
     <div class="content">
       <v-alert border="left" color="#167362" dark class="leftTextAlign" type="info">
         <p class="zeromargin">
-          <span v-html="info"></span>
+          <component :is="transformed" />
         </p>
       </v-alert>
     </div>
@@ -14,6 +14,12 @@
 export default {
   props: {
     info: String
+  },
+  computed: {
+    transformed() {
+      let transformedText = `<p class="zeromargin">${this.info}</p>`;
+      return { template: transformedText };
+    }
   }
 };
 </script>

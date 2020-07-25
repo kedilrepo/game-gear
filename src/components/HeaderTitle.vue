@@ -18,7 +18,7 @@
       <div class="cleanwrapper">
         <div class="subtitle" v-if="subTitle != undefined">
           <h2>
-            <span v-html="subTitle" />
+            <component :is="transformed" />
           </h2>
         </div>
       </div>
@@ -37,6 +37,12 @@ export default {
     },
     subTitle: String,
     lightTitle: Boolean
+  },
+  computed: {
+    transformed() {
+      let transformedText = "<h2>" + this.subTitle + "</h2>";
+      return { template: transformedText };
+    }
   }
 };
 </script>

@@ -8,14 +8,14 @@
         <v-simple-table max-height="400px">
           <template v-slot:default>
             <thead>
-              <th class="text-left" v-for="title in jsonAsJson.columnTitles" :key="title.id">
-                <span v-html="title.name" />
+              <th class="text-left" v-for="title in transformed.columnTitles" :key="title.id">
+                <component :is="title.name" />
               </th>
             </thead>
             <tbody>
-              <tr v-for="(row, index) in jsonAsJson.rows" :key="index">
-                <td v-for="(title, index) in jsonAsJson.columnTitles" :key="index">
-                  <span v-html="row[title.id]" />
+              <tr v-for="(row, index) in transformed.rows" :key="index">
+                <td v-for="(title, index) in transformed.columnTitles" :key="index">
+                  <component :is="row[title.id]" />
                 </td>
               </tr>
             </tbody>
@@ -34,6 +34,21 @@ export default {
   computed: {
     jsonAsJson: function() {
       return JSON.parse(this.json);
+    },
+    transformed() {
+      let parsedJSON = JSON.parse(this.json);
+      parsedJSON.columnTitles.forEach(title => {
+        title["name"] = { template: `<div>${title["name"]}</div>` };
+        return title;
+      });
+      parsedJSON.rows.forEach(row => {
+        parsedJSON.columnTitles.forEach(title => {
+          row[title.id] = {
+            template: `<div>${row[title.id]}</div>`
+          };
+        });
+      });
+      return parsedJSON;
     }
   },
   data() {

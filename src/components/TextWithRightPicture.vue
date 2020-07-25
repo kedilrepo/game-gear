@@ -7,7 +7,9 @@
         </div>
         <div class="details">
           <div class="leftTextAlign">
-            <p><span v-html="text" /></p>
+            <p>
+              <component :is="transformed" />
+            </p>
           </div>
           <img :src="imageUrl" />
         </div>
@@ -28,6 +30,12 @@ export default {
       required: true
     },
     text: String
+  },
+  computed: {
+    transformed() {
+      let transformedText = "<div>" + this.text + "</div>";
+      return { template: transformedText };
+    }
   }
 };
 </script>

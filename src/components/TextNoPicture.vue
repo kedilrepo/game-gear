@@ -7,7 +7,7 @@
         </div>
         <div class="details">
           <p>
-            <span v-html="text" />
+            <component :is="transformed" />
           </p>
         </div>
       </v-container>
@@ -23,6 +23,12 @@ export default {
       required: true
     },
     text: String
+  },
+  computed: {
+    transformed() {
+      let transformedText = "<div>" + this.text + "</div>";
+      return { template: transformedText };
+    }
   }
 };
 </script>

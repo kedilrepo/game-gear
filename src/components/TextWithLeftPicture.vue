@@ -7,7 +7,9 @@
         </div>
         <div class="details">
           <img :src="imageUrl" />
-          <p><span v-html="text"/></p>
+          <p>
+            <component :is="transformed" />
+          </p>
         </div>
       </v-container>
     </div>
@@ -26,9 +28,14 @@ export default {
       required: true
     },
     text: String
+  },
+  computed: {
+    transformed() {
+      let transformedText = "<div>" + this.text + "</div>";
+      return { template: transformedText };
+    }
   }
 };
 </script>
 
-<style lang="scss">
-</style>
+<style lang="scss"></style>
