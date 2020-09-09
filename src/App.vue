@@ -91,7 +91,7 @@ img {
 }
 
 .content {
-  padding: 20px 0 20px 0;
+  padding: 5px 0 5px 0;
   max-width: 1140px;
   margin: 0 auto;
   background-color: white;

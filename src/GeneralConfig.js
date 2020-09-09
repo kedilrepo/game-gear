@@ -6,7 +6,7 @@ export default {
             { title: "Tastaturen", path: "/tastaturen" },
             { title: "Mauspads", path: "/mauspads" },
             { title: "Headsets", path: "/headsets" },
-            { title: "Mäuse", path: "/maeuse" }
+            { title: "Mäuse", path: "/maeuse" },
         ];
     },
     get appTitle() {
@@ -16,10 +16,7 @@ export default {
         return [
             { name: "Home", url: "" },
             { name: "Impressum", url: "impressum" },
-            { name: "Team", url: "team" },
-            { name: "Services", url: "services" },
-            { name: "Blog", url: "blog" },
-            { name: "Contact Us", url: "contact" }
+            { name: "Contact Us", url: "contact" },
         ];
     },
     get footerIcons() {
@@ -27,7 +24,7 @@ export default {
             { iconName: mdiFacebook, url: "https://facebook.com" },
             { iconName: mdiTwitter, url: "https://twitter.com/kedilinfo" },
             { iconName: mdiLinkedin, url: "https://linkedin.com/kedilinfo" },
-            { iconName: mdiInstagram, url: "https://instagram.com/kedilinfo" }
+            { iconName: mdiInstagram, url: "https://instagram.com/kedilinfo" },
         ];
-    }
-}
+    },
+};
