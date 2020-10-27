@@ -17,6 +17,7 @@ export default {
             { name: "Home", url: "" },
             { name: "Impressum", url: "impressum" },
             { name: "Contact Us", url: "contact" },
+            { name: "Datenschutz", url: "datenschutz" },
         ];
     },
     get footerIcons() {

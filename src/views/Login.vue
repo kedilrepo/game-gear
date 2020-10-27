@@ -34,7 +34,7 @@
           </v-card-text>
           <v-card-actions>
             <v-spacer></v-spacer>
-            <v-btn color="#009688" @click="login()" :disabled="!formValid"
+            <v-btn color="#009688" @click="login()" :disabled="!formValid || loading"
               >Login</v-btn
             >
           </v-card-actions>
@@ -71,35 +71,38 @@ export default {
     };
   },
   methods: {
-    login() {
+    async login() {
       this.loading = true;
-      fb.auth
-        .signInWithEmailAndPassword(this.email, this.pw)
-        .then(async () => {
-          try {
-            console.log("Ready to check at Backend");
-
-            let success = await api.checkUser();
-            console.log(success);
-
-            if (success) {
-              this.$router.push("/dashboard");
-            } else {
-              this.wrongLogin();
-            }
-          } catch (e) {
-            console.log(e);
-
-            this.wrongLogin();
-          }
-        })
-        .catch(function(error) {
+      var e = await fb.auth
+        .signInWithEmailAndPassword(this.email, this.pw).catch(function(error) {
           // Handle Errors here.
           var errorCode = error.code;
           var errorMessage = error.message;
-          this.wrongLogin();
+          // this.loading = false;
+          // this.error = true;
           console.log(`Error ${errorCode} threw message ${errorMessage}`);
+          return error;
         });
+      console.log(e);
+      if(e != null) {
+        console.log(e);
+        console.log("Failed to login");
+        this.wrongLogin();
+        return;
+      }
+
+      try {
+        let success = await api.checkUser();
+        if (success) {
+          this.$router.push("/dashboard");
+        } else {
+          this.wrongLogin();
+        }
+      } catch (e) {
+        console.log(e);
+        this.wrongLogin();
+      }
+      
     },
     wrongLogin() {
       this.loading = false;

@@ -1,8 +1,8 @@
 <template class="nav">
   <nav class="navbar" :style="navbarStyle">
     <span class="navbar-toggle" id="js-navbar-toggle" @click="toggleNavbar()">
-      <v-icon v-if="!isToggled" size="24px">{{ menuIcon }}</v-icon>
-      <v-icon v-else size="24px">{{ menuCloseIcon }}</v-icon>
+      <v-icon v-if="!isToggled" size="24px" color="#ffffff">{{ menuIcon }} </v-icon>
+      <v-icon v-else size="24px" color="#ffffff">{{ menuCloseIcon }}</v-icon>
     </span>
     <router-link to="/home" class="logo">{{ appTitle }}</router-link>
     <ul class="main-nav" :class="{active: isToggled}" id="js-menu">

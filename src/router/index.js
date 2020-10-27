@@ -81,15 +81,10 @@ const routes = [{
                 }
             }
             if (store != null) {
-                console.log("Trying to use store");
 
                 if ((store.getters.user != null) | (store.getters.user != undefined)) {
-                    console.log("Trying to check loggedIn");
-
-                    console.log(store.getters.user.loggedIn);
 
                     if (store.getters.user.loggedIn) {
-                        console.log("Logged in via store");
 
                         if (await api.checkUser()) {
                             next();

@@ -1,5 +1,5 @@
 const FooterColor = "#042F40";
-const NavbarColor = "#3F8EBF";
+const NavbarColor = "#042F40";
 const InfoColor = "#167362";
 const AccentOne = "#F2A20C";
 const AccentTwo = "#A7D175";
