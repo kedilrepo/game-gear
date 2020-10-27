@@ -4,9 +4,9 @@
     <Content :data="data"></Content>!-->
     <section class="body">
         <section class="py-7 py-md-0 bg-hero" id="home">
-            <div class="container">
-                  <div class="row vh-md-100">
-                      <div class="col-md-8 col-sm-10 col-12 mx-auto my-auto text-center">
+            <div class="container-bts container">
+                  <div class="row-bt vh-md-100">
+                      <div class="col-md-8-bt col-sm-10-bt col-12-bt mx-auto my-auto text-center">
                           <h1 class="h1 heading-black text-capitalize">Better gaming experience with better gaming equipment.</h1>
                           <p class="p p-colored lead py-3">Look now for the best deals.<br>Sichern Sie sich jetzt das beste Gamingequipment mit den besten Preisen!</p>
                           <!-- <v-btn color="green" @click="deleteData()" :disabled="uploading">Delete</v-btn> -->
@@ -16,17 +16,17 @@
         </section>
 
   <section class="pt-6 pb-7" id="features">
-    <div class="container">
-        <div class="row">
-            <div class="col-md-6 mx-auto text-center">
+    <div class="container-bts">
+        <div class="row-bt">
+            <div class="col-md-6-bt mx-auto text-center">
                 <h2 class="heading-black h2">Vergleiche, was du brauchst</h2>
                 <p class="text-muted lead p text-center">Zu jedem Equipment die passende, professionelle Meinung.</p>
             </div>
         </div>
-        <div class="row mt-5">
-            <div class="col-md-10 mx-auto">
+        <div class="row-bt mt-5">
+            <div class="col-md-10-bt mx-auto">
                 <div class="row feature-boxes">
-                    <div class="col-md-6 box">
+                    <div class="col-md-6-bt box pointer-cursor" @click="goTo('tastaturen')">
                         <div class="icon-box box-primary">
                             <div class="icon-box-inner">
                                 <v-icon>{{keyboard}}</v-icon>
@@ -35,7 +35,7 @@
                         <h5 class="h5">Tastaturen</h5>
                         <p class="text-muted p">Von mechanischen bis zu Rubberdome-Tastaturen.</p>
                     </div>
-                    <div class="col-md-6 box">
+                    <div class="col-md-6-bt box pointer-cursor" @click="goTo('maeuse')">
                         <div class="icon-box box-success">
                             <div class="icon-box-inner">
                                 <v-icon>{{mouse}}</v-icon>
@@ -44,7 +44,7 @@
                         <h5 class="h5">Mäuse</h5>
                         <p class="text-muted p">Ob Seitentasten, schlicht, oder mit übermäßig vielen Funktionen - Alles im Überblick.</p>
                     </div>
-                    <div class="col-md-6 box">
+                    <div class="col-md-6-bt box pointer-cursor" @click="goTo('mauspads')">
                         <div class="icon-box box-danger">
                             <div class="icon-box-inner">
                                 <v-icon>{{mousepad}}</v-icon>
@@ -53,7 +53,7 @@
                         <h5 class="h5">Mauspads</h5>
                         <p class="text-muted" p>Ob man es glaubt oder nicht - auch ein gutes Mauspad kann deine Performance wesentlich erhöhen.</p>
                     </div>
-                    <div class="col-md-6 box">
+                    <div class="col-md-6-bt box pointer-cursor" @click="goTo('headsets')">
                         <div class="icon-box box-info">
                             <div class="icon-box-inner">
                                 <v-icon>{{headset}}</v-icon>
@@ -110,7 +110,10 @@ export default {
       this.loading = true;
       this.data = await api.getData("home");
       this.loading = false;
-    }
+    },
+    goTo: function(routeName) {
+      this.$router.push("/" + routeName.toLowerCase());
+    },
   }
 };
 </script>
@@ -215,26 +218,26 @@ section {
   z-index: 2;
   position: relative; }
   
-.container {
+.container-bts {
 width: 100%;
 padding-right: 15px;
 padding-left: 15px;
 margin-right: auto;
 margin-left: auto; }
 @media (min-width: 576px) {
-  .container {
+  .container-bts {
     max-width: 540px; } }
 @media (min-width: 768px) {
-  .container {
+  .container-bts {
     max-width: 720px; } }
 @media (min-width: 992px) {
-  .container {
+  .container-bts {
     max-width: 960px; } }
 @media (min-width: 1200px) {
-  .container {
+  .container-bts {
     max-width: 1140px; } }
 
-.row {
+.row-bt {
 display: -ms-flexbox;
 display: flex;
 -ms-flex-wrap: wrap;
@@ -245,31 +248,31 @@ margin-left: -15px; }
 @media (min-width: 768px) {
 .vh-md-100 {
   height: 100vh; }
-.col-md-6 {
+.col-md-6-bt {
     -ms-flex: 0 0 50%;
         flex: 0 0 50%;
     max-width: 50%; }
-.col-md-8 {
+.col-md-8-bt {
     -ms-flex: 0 0 66.66667%;
         flex: 0 0 66.66667%;
     max-width: 66.66667%; }
 
-.col-md-10 {
+.col-md-10-bt {
     -ms-flex: 0 0 83.33333%;
         flex: 0 0 83.33333%;
     max-width: 83.33333%; }
 
-.col-sm-10 {
+.col-sm-10-bt {
     -ms-flex: 0 0 83.33333%;
         flex: 0 0 83.33333%;
     max-width: 83.33333%; }
 
-.col-12 {
+.col-12-bt {
   -ms-flex: 0 0 100%;
       flex: 0 0 100%;
   max-width: 100%; } }
 
-.col-md-8, .col-sm-10, .col-md-6, .col-md-10 {
+.col-md-8-bt, .col-sm-10-bt, .col-md-6-bt, .col-md-10-bt {
   position: relative;
   width: 100%;
   min-height: 1px;
@@ -342,4 +345,9 @@ margin-left: -15px; }
     -ms-flex-align: center;
         align-items: center;
     padding: 1.5rem; }
+
+
+.pointer-cursor {
+  cursor: pointer;
+}
 </style>

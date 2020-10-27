@@ -84,8 +84,8 @@ export default {
           return error;
         });
       console.log(e);
-      if(e != null) {
-        console.log(e);
+      if(e.code != null) {
+        console.log(e.code);
         console.log("Failed to login");
         this.wrongLogin();
         return;
