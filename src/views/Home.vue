@@ -72,7 +72,7 @@
 
 <script>
 // import Content from "@/components/Content";
-import api from "@/api";
+// import api from "@/api";
 import { mdiKeyboard, mdiMouse, mdiTrackpad, mdiHeadsetDock } from "@mdi/js";
 
 export default {
@@ -91,26 +91,26 @@ export default {
       headset: mdiHeadsetDock
     };
   },
-  async beforeRouteEnter(to, from, next) {
-    let res = await api.getData("home");
-    console.log(res);
-    next(vm => {
-      vm.data = res.data;
-    });
-  },
-  async beforeRouteUpdate(to, from, next) {
-    console.log("Before Route UPDATE");
+  // async beforeRouteEnter(to, from, next) {
+  //   let res = await api.getData("home");
+  //   console.log(res);
+  //   next(vm => {
+  //     vm.data = res.data;
+  //   });
+  // },
+  // async beforeRouteUpdate(to, from, next) {
+  //   console.log("Before Route UPDATE");
 
-    let res = await api.getData("home");
-    this.data = res.data;
-    next();
-  },
+  //   let res = await api.getData("home");
+  //   this.data = res.data;
+  //   next();
+  // },
   methods: {
-    async refreshData() {
-      this.loading = true;
-      this.data = await api.getData("home");
-      this.loading = false;
-    },
+    // async refreshData() {
+    //   this.loading = true;
+    //   this.data = await api.getData("home");
+    //   this.loading = false;
+    // },
     goTo: function(routeName) {
       this.$router.push("/" + routeName.toLowerCase());
     },
@@ -349,5 +349,15 @@ margin-left: -15px; }
 
 .pointer-cursor {
   cursor: pointer;
+  border-radius: 1rem;
+  transition: 0.4s;
+}
+
+.pointer-cursor:hover {
+  margin-left: 0.5rem;
+  margin-right: -0.5rem;
+  margin-top: 0.5rem;
+  margin-bottom: -0.5rem;
+  background-color: whitesmoke;
 }
 </style>
