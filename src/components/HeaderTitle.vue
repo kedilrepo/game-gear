@@ -1,4 +1,5 @@
 <template>
+<section>
   <div class="backgroundHeaderTitle">
     <div class="headertitle">
       <div class="imageWrapper">
@@ -25,6 +26,7 @@
       <!-- <img class="image" :src="titlepictureURL" /> -->
     </div>
   </div>
+</section>
 </template>
 
 <script>

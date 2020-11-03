@@ -1,4 +1,5 @@
 <template>
+<section>
   <div class="background">
     <div class="content">
       <v-flex>
@@ -16,6 +17,7 @@
       </v-flex>
     </div>
   </div>
+  </section>
 </template>
 
 <script>

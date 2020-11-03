@@ -1,4 +1,5 @@
 <template>
+<section>
   <div class="background">
     <div class="content">
       <v-container fluid>
@@ -14,6 +15,7 @@
       </v-container>
     </div>
   </div>
+  </section>
 </template>
 
 <script>
