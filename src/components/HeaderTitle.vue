@@ -52,9 +52,14 @@ export default {
 <style lang="scss">
 $mobileWidth: 700px;
 
+.headertitle {
+  background-color: #f8f9fa;
+}
+
 .imageWrapper {
   max-width: 1140px;
   margin: 0 auto;
+  background-color: #fff;
 }
 
 .bigTitle {

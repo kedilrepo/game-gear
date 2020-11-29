@@ -28,6 +28,7 @@
         <ComparisonTable :json="item.json"></ComparisonTable>
       </div>
     </div>
+    <LastEdited :lastEdited="lastEdited"></LastEdited>
   </section>
 </template>
 <script>
@@ -38,6 +39,7 @@ import HeaderTitle from "@/components/HeaderTitle.vue";
 import Ad from "@/components/Ad.vue";
 import Infobox from "@/components/Infobox.vue";
 import ComparisonTable from "@/components/ComparisonTable.vue";
+import LastEdited from "@/components/LastEdited.vue";
 export default {
   components: {
     TextWithLeftPicture,
@@ -46,10 +48,14 @@ export default {
     HeaderTitle,
     Ad,
     Infobox,
-    ComparisonTable
+    ComparisonTable,
+    LastEdited
   },
   props: {
     data: {
+      required: true
+    },
+    lastEdited: {
       required: true
     }
   }

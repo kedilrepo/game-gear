@@ -7,6 +7,8 @@ export default {
             { title: "Mauspads", path: "/mauspads" },
             { title: "Headsets", path: "/headsets" },
             { title: "Mäuse", path: "/maeuse" },
+            { title: "Sonstiges", path: "/other" },
+            { title: "Lexikon", path: "/lexikon" },
         ];
     },
     get appTitle() {

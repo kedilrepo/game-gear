@@ -21,7 +21,7 @@
         <v-row no-gutters v-else>
           <Content
             :data="renderData"
-            style="width: 40%; min-width: 570px;"
+            style="width: 40%;"
           ></Content>
           <Editor
             v-model="strData"

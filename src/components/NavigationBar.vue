@@ -7,7 +7,7 @@
     <router-link to="/home" class="logo">{{ appTitle }}</router-link>
     <ul class="main-nav" :class="{active: isToggled}" id="js-menu">
       <li v-for="(menuItem, index) in menuItems" :key="index">
-        <router-link :to="menuItem.path" class="nav-links">{{menuItem.title}}</router-link>
+        <router-link :to="menuItem.path" @click="closeNavbar" class="nav-links">{{menuItem.title}}</router-link>
       </li>
     </ul>
   </nav>
@@ -33,6 +33,9 @@ export default {
   methods: {
     toggleNavbar() {
       this.isToggled = !this.isToggled;
+    },
+    closeNavbar() {
+      this.isToggled = false;
     }
   },
   computed: {
@@ -63,7 +66,8 @@ $mobileNavWidth: 750px;
 .nav-links,
 .logo {
   text-decoration: none;
-  color: rgba(255, 255, 255, 0.7);
+  color: rgba(255, 255, 255, 0.9);
+  opacity: 1;
 }
 
 .main-nav li {
@@ -76,6 +80,8 @@ $mobileNavWidth: 750px;
   font-size: 22px;
   margin-top: 10px;
   margin-left: 20px;
+  text-transform: capitalize !important;
+  font-weight: 800;
 }
 
 .navbar-toggle {
@@ -90,13 +96,14 @@ $mobileNavWidth: 750px;
 .main-nav {
   list-style-type: none;
   display: none;
+  transform: 0.5s;
 }
 
 .active {
   display: block;
 }
 
-@media screen and (min-width: 768px) {
+@media screen and (min-width: 900px) {
   .navbar {
     display: flex;
     justify-content: space-between;
@@ -114,10 +121,21 @@ $mobileNavWidth: 750px;
 
   .main-nav li {
     margin: 0;
+    padding-top: 10px;
+    padding-bottom: 10px;
+    background-color: none;
+    border-radius: 4px;
+    transition: background-color 0.2s cubic-bezier(.4,0,.6,1);
+  }
+
+  .main-nav li:hover {
+    background-color: rgba(239, 239, 239, 0.12);
+    transition: 0.2s cubic-bezier(.4,0,.6,1);
   }
 
   .nav-links {
-    margin-left: 40px;
+    margin-left: 20px;
+    margin-right: 20px;
   }
 
   .logo {
