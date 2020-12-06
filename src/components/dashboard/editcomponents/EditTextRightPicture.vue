@@ -1,31 +1,46 @@
 <template>
   <v-col>
     <v-row justify="space-between">
-      <h4>{{value.structureId}}</h4>
-      <h4>{{value.content.type}}</h4>
+      <h4>{{ value.structureId }}</h4>
+      <h4>{{ value.content.type }}</h4>
     </v-row>
     <v-form>
-      <v-text-field v-model="value.content.title" counter="300" label="Title"></v-text-field>
-      <v-text-field v-model="value.content.image_url" counter="300" label="Image-URL"></v-text-field>
-      <v-textarea v-model="value.content.main_text" label="Text" hint="Main Text Here"></v-textarea>
+      <v-text-field
+        v-model="value.content.title"
+        counter="300"
+        label="Title"
+      ></v-text-field>
+      <v-text-field
+        v-model="value.content.image_url"
+        counter="300"
+        label="Image-URL"
+      ></v-text-field>
+      <v-textarea
+        v-model="value.content.main_text"
+        label="Text"
+        hint="Main Text Here"
+      ></v-textarea>
       <v-card-actions>
-        <v-btn color="red" @click="deleteData()" :disabled="uploading">Delete</v-btn>
+        <v-btn color="red" @click="deleteData()" :disabled="uploading"
+          >Delete</v-btn
+        >
         <v-spacer></v-spacer>
-        <v-btn color="#009688" @click="updateComponent()" :disabled="uploading">Save</v-btn>
+        <v-btn color="#009688" @click="updateComponent()" :disabled="uploading"
+          >Save</v-btn
+        >
       </v-card-actions>
     </v-form>
-    <v-alert
-      type="error"
-      v-model="deleted"
-      transition="scale-transition"
-    >This structure is deleted - to see the effect please reload the page</v-alert>
+    <v-alert type="error" v-model="deleted" transition="scale-transition"
+      >This structure is deleted - to see the effect please reload the
+      page</v-alert
+    >
   </v-col>
 </template>
 
 <script>
 import api from "@/api";
 export default {
-  props: ["value"],
+  props: ["value", "blog"],
   data() {
     return {
       uploading: false,
@@ -43,21 +58,29 @@ export default {
         content: this.value.content
       });
 
-      let res = await api.updateStructure(this.value);
+      let res;
+      if (this.blog) {
+        res = await api.updateBlogStructure(this.value);
+      } else {
+        res = await api.updateStructure(this.value);
+      }
 
-      if (res.status != 202) {
+      if (res.status !== 202) {
         alert("Can't edit data because of " + res.data.Error);
       }
       this.uploading = false;
     },
     async deleteData() {
       this.uploading = false;
-      await api.deleteStructure(this.value.structureId);
+      if (this.blog) {
+        await api.deleteBlogStructure(this.value.structureId);
+      } else {
+        await api.deleteStructure(this.value.structureId);
+      }
       this.deleted = true;
     }
   }
 };
 </script>
 
-<style>
-</style>
+<style></style>

@@ -1,32 +1,32 @@
 <template>
-<section>
-  <div class="backgroundHeaderTitle">
-    <div class="headertitle">
-      <div class="imageWrapper">
-        <v-img height="400px" :src="titlepictureURL">
-          <div v-if="lightTitle" class="bigTitle titleLight">
-            <h1>
-              <span v-html="bigTitle" />
-            </h1>
-          </div>
-          <div v-else class="bigTitle titleDark">
-            <h1>
-              <span v-html="bigTitle" />
-            </h1>
-          </div>
-        </v-img>
-      </div>
-      <div class="cleanwrapper">
-        <div class="subtitle" v-if="subTitle != undefined">
-          <h2>
-            <component :is="transformed" />
-          </h2>
+  <section>
+    <div class="backgroundHeaderTitle">
+      <div class="headertitle">
+        <div class="imageWrapper">
+          <v-img height="400px" :src="titlepictureURL">
+            <div v-if="lightTitle" class="bigTitle titleLight">
+              <h1>
+                <span v-html="bigTitle" />
+              </h1>
+            </div>
+            <div v-else class="bigTitle titleDark">
+              <h1>
+                <span v-html="bigTitle" />
+              </h1>
+            </div>
+          </v-img>
         </div>
+        <div class="cleanwrapper">
+          <div class="subtitle" v-if="subTitle !== undefined">
+            <h2>
+              <component :is="transformed" />
+            </h2>
+          </div>
+        </div>
+        <!-- <img class="image" :src="titlepictureURL" /> -->
       </div>
-      <!-- <img class="image" :src="titlepictureURL" /> -->
     </div>
-  </div>
-</section>
+  </section>
 </template>
 
 <script>
@@ -91,7 +91,7 @@ $mobileWidth: 700px;
 
 .subtitle {
   text-align: left;
-  margin: 0px 10px 0px 10px;
+  margin: 0 10px 0 10px;
   color: darkslategrey;
 
   @media (min-width: $mobileWidth) {
@@ -109,5 +109,3 @@ $mobileWidth: 700px;
   }
 }
 </style>
-
-

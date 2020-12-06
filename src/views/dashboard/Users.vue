@@ -15,15 +15,20 @@
       </div>
       <v-container class="fill-height" fluid v-if="loading">
         <v-row justify="center">
-          <v-progress-circular indeterminate color="green"></v-progress-circular>
+          <v-progress-circular
+            indeterminate
+            color="green"
+          ></v-progress-circular>
         </v-row>
       </v-container>
       <v-col v-else v-for="(user, index) in users" :key="index">
         <v-divider></v-divider>
         <v-row>
-          <h3>{{user.user_id}}</h3>
+          <h3>{{ user.user_id }}</h3>
           <v-spacer></v-spacer>
-          <v-btn color="red" @click="showDeleteDialog(index)">Remove User</v-btn>
+          <v-btn color="red" @click="showDeleteDialog(index)"
+            >Remove User</v-btn
+          >
         </v-row>
       </v-col>
     </v-col>
@@ -56,21 +61,29 @@
         v-model="userAddingError"
         transition="scale-transition"
         dismissible
-      >{{userAddingErrorText}}</v-alert>
+        >{{ userAddingErrorText }}
+      </v-alert>
     </v-dialog>
 
     <v-dialog v-model="removingUser" max-width="300px">
       <v-card>
-        <v-card-title
-          class="headline"
-        >Are you sure you want to remove the user with the id "{{users[currentlyRemovingUserIndex].user_id}}"?</v-card-title>
+        <v-card-title class="headline"
+          >Are you sure you want to remove the user with the id "{{
+            users[currentlyRemovingUserIndex].user_id
+          }}"?
+        </v-card-title>
 
-        <v-card-text>These changes will not be revertable! Don't do it if you don't know what you're doing.</v-card-text>
+        <v-card-text
+          >These changes will not be revertable! Don't do it if you don't know
+          what you're doing.
+        </v-card-text>
 
         <v-card-actions>
           <v-spacer></v-spacer>
 
-          <v-btn color="green darken-1" text @click="closeDeletionDialog()">Cancel</v-btn>
+          <v-btn color="green darken-1" text @click="closeDeletionDialog()"
+            >Cancel</v-btn
+          >
 
           <v-btn color="red" text @click="deleteUser()">Remove</v-btn>
         </v-card-actions>
@@ -80,13 +93,15 @@
         v-model="userRemovingError"
         transition="scale-transition"
         dismissible
-      >{{userRemovingErrorText}}</v-alert>
+        >{{ userRemovingErrorText }}
+      </v-alert>
     </v-dialog>
   </v-layout>
 </template>
 
 <script>
 import api from "@/api";
+
 export default {
   data() {
     return {

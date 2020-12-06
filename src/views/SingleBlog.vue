@@ -25,9 +25,8 @@ export default {
   },
   props: {},
   async beforeRouteEnter(to, from, next) {
-    let page = to.fullPath.substr(1);
-
-    let res = await api.getData(page);
+    let page = to.params.url;
+    let res = await api.getBlog(page);
     if (res.status === 202) {
       next(vm => {
         vm.data = res.data.data;
@@ -35,11 +34,12 @@ export default {
         vm.pagename = page;
       });
     } else {
+      console.log("Heyho from Blog Resend");
       next("/404");
     }
   },
   async beforeRouteUpdate(to, from, next) {
-    let page = to.fullPath.substr(1);
+    let page = to.params.url;
 
     let res = await api.getData(page);
 

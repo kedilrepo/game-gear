@@ -5,11 +5,15 @@
         <v-col>
           <h1>Welcome to the Admin-Dashboard / Panel</h1>
           <h3>Currently, there aren't any Analytics directly integrated.</h3>
-          <h3>But as a good User, you could access them from the Google Analytics Dashboard</h3>
+          <h3>
+            But as a good User, you could access them from the Google Analytics
+            Dashboard
+          </h3>
           <a
             href="https://analytics.google.com/analytics/web/?hl=de#/p236879624/reports/home?params=_u..nav%3Dga1-experimental"
             target="_blank"
-          >GOOGLE ANALYTICS DASHBOARD</a>
+            >GOOGLE ANALYTICS DASHBOARD</a
+          >
         </v-col>
       </v-row>
     </v-container>
@@ -20,5 +24,4 @@
 export default {};
 </script>
 
-<style>
-</style>
+<style></style>

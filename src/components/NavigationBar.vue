@@ -1,13 +1,20 @@
 <template class="nav">
   <nav class="navbar" :style="navbarStyle">
     <span class="navbar-toggle" id="js-navbar-toggle" @click="toggleNavbar()">
-      <v-icon v-if="!isToggled" size="24px" color="#ffffff">{{ menuIcon }} </v-icon>
+      <v-icon v-if="!isToggled" size="24px" color="#ffffff"
+        >{{ menuIcon }}
+      </v-icon>
       <v-icon v-else size="24px" color="#ffffff">{{ menuCloseIcon }}</v-icon>
     </span>
     <router-link to="/home" class="logo">{{ appTitle }}</router-link>
-    <ul class="main-nav" :class="{active: isToggled}" id="js-menu">
+    <ul class="main-nav" :class="{ active: isToggled }" id="js-menu">
       <li v-for="(menuItem, index) in menuItems" :key="index">
-        <router-link :to="menuItem.path" @click="closeNavbar" class="nav-links">{{menuItem.title}}</router-link>
+        <router-link
+          :to="menuItem.path"
+          @click="closeNavbar"
+          class="nav-links"
+          >{{ menuItem.title }}</router-link
+        >
       </li>
     </ul>
   </nav>
@@ -125,12 +132,12 @@ $mobileNavWidth: 750px;
     padding-bottom: 10px;
     background-color: none;
     border-radius: 4px;
-    transition: background-color 0.2s cubic-bezier(.4,0,.6,1);
+    transition: background-color 0.2s cubic-bezier(0.4, 0, 0.6, 1);
   }
 
   .main-nav li:hover {
     background-color: rgba(239, 239, 239, 0.12);
-    transition: 0.2s cubic-bezier(.4,0,.6,1);
+    transition: 0.2s cubic-bezier(0.4, 0, 0.6, 1);
   }
 
   .nav-links {

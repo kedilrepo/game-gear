@@ -1,7 +1,7 @@
 <template>
   <section>
     <div v-for="(item, index) in data" :key="index">
-      <div v-if="item.type == 'headertitle'">
+      <div v-if="item.type === 'headertitle'">
         <HeaderTitle
           :bigTitle="item.title"
           :titlepictureURL="item.background_image"
@@ -9,23 +9,37 @@
           :lightTitle="item.light_title"
         ></HeaderTitle>
       </div>
-      <div v-else-if="item.type == 'textwithleftpicture'">
-        <TextWithLeftPicture :title="item.title" :imageUrl="item.image_url" :text="item.main_text"></TextWithLeftPicture>
+      <div v-else-if="item.type === 'textwithleftpicture'">
+        <TextWithLeftPicture
+          :title="item.title"
+          :imageUrl="item.image_url"
+          :text="item.main_text"
+        ></TextWithLeftPicture>
       </div>
-      <div v-else-if="item.type == 'textwithrightpicture'">
-        <TextWithRightPicture :title="item.title" :imageUrl="item.image_url" :text="item.main_text"></TextWithRightPicture>
+      <div v-else-if="item.type === 'textwithrightpicture'">
+        <TextWithRightPicture
+          :title="item.title"
+          :imageUrl="item.image_url"
+          :text="item.main_text"
+        ></TextWithRightPicture>
       </div>
-      <div v-else-if="item.type == 'textnopicture'">
-        <TextNoPicture :title="item.title" :text="item.main_text"></TextNoPicture>
+      <div v-else-if="item.type === 'textnopicture'">
+        <TextNoPicture
+          :title="item.title"
+          :text="item.main_text"
+        ></TextNoPicture>
       </div>
-      <div v-else-if="item.type == 'ad'">
+      <div v-else-if="item.type === 'ad'">
         <Ad></Ad>
       </div>
-      <div v-else-if="item.type == 'infobox'">
+      <div v-else-if="item.type === 'infobox'">
         <Infobox :info="item.info"></Infobox>
       </div>
-      <div v-else-if="item.type == 'comparisontable'">
+      <div v-else-if="item.type === 'comparisontable'">
         <ComparisonTable :json="item.json"></ComparisonTable>
+      </div>
+      <div v-else-if="item.type === 'imagebox'">
+        <ImageBox :imageUrl="item.image_url"></ImageBox>
       </div>
     </div>
     <LastEdited :lastEdited="lastEdited"></LastEdited>
@@ -40,6 +54,7 @@ import Ad from "@/components/Ad.vue";
 import Infobox from "@/components/Infobox.vue";
 import ComparisonTable from "@/components/ComparisonTable.vue";
 import LastEdited from "@/components/LastEdited.vue";
+import ImageBox from "@/components/ImageBox";
 export default {
   components: {
     TextWithLeftPicture,
@@ -49,7 +64,8 @@ export default {
     Ad,
     Infobox,
     ComparisonTable,
-    LastEdited
+    LastEdited,
+    ImageBox
   },
   props: {
     data: {
@@ -62,5 +78,4 @@ export default {
 };
 </script>
 
-<style>
-</style>
+<style></style>

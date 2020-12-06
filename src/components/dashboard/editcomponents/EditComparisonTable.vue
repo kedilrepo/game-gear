@@ -7,7 +7,11 @@
         </v-card-title>
         <v-card-text>
           <v-container>
-            <v-text-field v-model="jsonDataToEdit.tableName" counter="300" label="Title"></v-text-field>
+            <v-text-field
+              v-model="jsonDataToEdit.tableName"
+              counter="300"
+              label="Title"
+            ></v-text-field>
             <v-simple-table height="400px">
               <template v-slot:default>
                 <thead>
@@ -16,7 +20,9 @@
                     v-for="(title, index) in jsonDataToEdit.columnTitles"
                     :key="index"
                   >
-                    <v-btn color="red" @click="removeColumn(index)">Remove Column</v-btn>
+                    <v-btn color="red" @click="removeColumn(index)"
+                      >Remove Column</v-btn
+                    >
                     <v-text-field
                       v-model="jsonDataToEdit.columnTitles[index].name"
                       counter="300"
@@ -24,19 +30,29 @@
                     ></v-text-field>
                   </th>
                   <th>
-                    <v-btn color="#009688" @click="addColumn()">Add in Column</v-btn>
+                    <v-btn color="#009688" @click="addColumn()"
+                      >Add in Column</v-btn
+                    >
                   </th>
                 </thead>
                 <tbody>
-                  <tr v-for="(row, rowindex) in jsonDataToEdit.rows" :key="rowindex">
-                    <td v-for="(title, index) in jsonDataToEdit.columnTitles" :key="index">
+                  <tr
+                    v-for="(row, rowindex) in jsonDataToEdit.rows"
+                    :key="rowindex"
+                  >
+                    <td
+                      v-for="(title, index) in jsonDataToEdit.columnTitles"
+                      :key="index"
+                    >
                       <v-text-field
                         v-model="jsonDataToEdit.rows[rowindex][title.id]"
                         label="Content"
                       />
                     </td>
                     <td>
-                      <v-btn color="red" @click="removeRow(rowindex)">Remove Row</v-btn>
+                      <v-btn color="red" @click="removeRow(rowindex)"
+                        >Remove Row</v-btn
+                      >
                     </td>
                   </tr>
                   <tr>
@@ -51,7 +67,13 @@
         <v-card-actions>
           <v-spacer></v-spacer>
           <v-btn color="blue darken-1" text @click="closeEditor()">Close</v-btn>
-          <v-btn color="blue darken-1" text @click="saveEditor()" :disabled="creating">Save</v-btn>
+          <v-btn
+            color="blue darken-1"
+            text
+            @click="saveEditor()"
+            :disabled="creating"
+            >Save</v-btn
+          >
         </v-card-actions>
       </v-card>
       <v-alert
@@ -59,33 +81,41 @@
         v-model="tableEditError"
         transition="scale-transition"
         dismissible
-      >{{tableEditErrorText}}</v-alert>
+        >{{ tableEditErrorText }}
+      </v-alert>
     </v-dialog>
     <v-row justify="space-between">
-      <h4>{{value.structureId}}</h4>
-      <h4>{{value.content.type}}</h4>
+      <h4>{{ value.structureId }}</h4>
+      <h4>{{ value.content.type }}</h4>
     </v-row>
     <v-form>
-      <v-textarea v-model="value.content.json" label="Raw JSON" hint="Insert Raw JSON here"></v-textarea>
+      <v-textarea
+        v-model="value.content.json"
+        label="Raw JSON"
+        hint="Insert Raw JSON here"
+      ></v-textarea>
       <v-btn color="#009688" @click="openEditor()">Open in Editor</v-btn>
       <v-card-actions>
-        <v-btn color="red" @click="deleteData()" :disabled="uploading">Delete</v-btn>
+        <v-btn color="red" @click="deleteData()" :disabled="uploading"
+          >Delete</v-btn
+        >
         <v-spacer></v-spacer>
-        <v-btn color="#009688" @click="updateComponent()" :disabled="uploading">Save</v-btn>
+        <v-btn color="#009688" @click="updateComponent()" :disabled="uploading"
+          >Save</v-btn
+        >
       </v-card-actions>
     </v-form>
-    <v-alert
-      type="error"
-      v-model="deleted"
-      transition="scale-transition"
-    >This structure is deleted - to see the effect please reload the page</v-alert>
+    <v-alert type="error" v-model="deleted" transition="scale-transition"
+      >This structure is deleted - to see the effect please reload the page
+    </v-alert>
   </v-col>
 </template>
 
 <script>
 import api from "@/api";
+
 export default {
-  props: ["value"],
+  props: ["value", "blog"],
   data() {
     return {
       uploading: false,
@@ -107,16 +137,25 @@ export default {
         content: this.value.content
       });
 
-      let res = await api.updateStructure(this.value);
+      let res;
+      if (this.blog) {
+        res = await api.updateBlogStructure(this.value);
+      } else {
+        res = await api.updateStructure(this.value);
+      }
 
-      if (res.status != 202) {
+      if (res.status !== 202) {
         alert("Can't edit data because of " + res.data.Error);
       }
       this.uploading = false;
     },
     async deleteData() {
       this.uploading = false;
-      await api.deleteStructure(this.value.structureId);
+      if (this.blog) {
+        await api.deleteBlogStructure(this.value.structureId);
+      } else {
+        await api.deleteStructure(this.value.structureId);
+      }
       this.deleted = true;
     },
     closeEditor() {
@@ -177,5 +216,4 @@ export default {
 };
 </script>
 
-<style>
-</style>
+<style></style>

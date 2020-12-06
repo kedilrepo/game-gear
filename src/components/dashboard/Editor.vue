@@ -20,7 +20,13 @@
         <v-card-actions>
           <v-spacer></v-spacer>
           <v-btn color="blue darken-1" text @click="resetError()">Close</v-btn>
-          <v-btn color="blue darken-1" text @click="createStructure()" :disabled="creating">Save</v-btn>
+          <v-btn
+            color="blue darken-1"
+            text
+            @click="createStructure()"
+            :disabled="creating"
+            >Save</v-btn
+          >
         </v-card-actions>
       </v-card>
       <v-alert
@@ -28,35 +34,53 @@
         v-model="structureCreationError"
         transition="scale-transition"
         dismissible
-      >{{structureCreationErrorText}}</v-alert>
+        >{{ structureCreationErrorText }}</v-alert
+      >
     </v-dialog>
     <v-btn color="primary" dark @click="openMenu(0)">Insert Structure</v-btn>
     <div v-for="(item, index) in value" :key="index">
-      <div v-if="item.content.type == 'headertitle'">
-        <EditHeaderTitle v-model="value[index]"></EditHeaderTitle>
+      <div v-if="item.content.type === 'headertitle'">
+        <EditHeaderTitle v-model="value[index]" :blog="blog"></EditHeaderTitle>
       </div>
-      <div v-else-if="item.content.type == 'textwithleftpicture'">
-        <EditTextLeftPicture v-model="value[index]"></EditTextLeftPicture>
+      <div v-else-if="item.content.type === 'textwithleftpicture'">
+        <EditTextLeftPicture
+          v-model="value[index]"
+          :blog="blog"
+        ></EditTextLeftPicture>
       </div>
-      <div v-else-if="item.content.type == 'textwithrightpicture'">
-        <EditTextRightPicture v-model="value[index]"></EditTextRightPicture>
+      <div v-else-if="item.content.type === 'textwithrightpicture'">
+        <EditTextRightPicture
+          v-model="value[index]"
+          :blog="blog"
+        ></EditTextRightPicture>
       </div>
-      <div v-else-if="item.content.type == 'textnopicture'">
+      <div v-else-if="item.content.type === 'textnopicture'">
+        <EditTextNoPicture
+          v-model="value[index]"
+          :blog="blog"
+        ></EditTextNoPicture>
+      </div>
+      <!-- <div v-else-if="item.content.type == 'textnopicture'">
         <EditTextNoPicture v-model="value[index]"></EditTextNoPicture>
+      </div> -->
+      <div v-else-if="item.content.type === 'ad'">
+        <EditAd v-model="value[index]" :blog="blog"></EditAd>
       </div>
-      <div v-else-if="item.content.type == 'textnopicture'">
-        <EditTextNoPicture v-model="value[index]"></EditTextNoPicture>
+      <div v-else-if="item.content.type === 'infobox'">
+        <EditInfobox v-model="value[index]" :blog="blog"></EditInfobox>
       </div>
-      <div v-else-if="item.content.type == 'ad'">
-        <EditAd v-model="value[index]"></EditAd>
+      <div v-else-if="item.content.type === 'comparisontable'">
+        <EditComparisonTable
+          v-model="value[index]"
+          :blog="blog"
+        ></EditComparisonTable>
       </div>
-      <div v-else-if="item.content.type == 'infobox'">
-        <EditInfobox v-model="value[index]"></EditInfobox>
+      <div v-else-if="item.content.type === 'imagebox'">
+        <EditImageBox v-model="value[index]" :blog="blog"></EditImageBox>
       </div>
-      <div v-else-if="item.content.type == 'comparisontable'">
-        <EditComparisonTable v-model="value[index]"></EditComparisonTable>
-      </div>
-      <v-btn color="primary" dark @click="openMenu(index + 1)">Insert Structure</v-btn>
+      <v-btn color="primary" dark @click="openMenu(index + 1)"
+        >Insert Structure</v-btn
+      >
     </div>
   </div>
 </template>
@@ -69,6 +93,7 @@ import EditHeaderTitle from "@/components/dashboard/editcomponents/EditHeaderTit
 import EditAd from "@/components/dashboard/editcomponents/EditAd.vue";
 import EditInfobox from "@/components/dashboard/editcomponents/EditInfobox.vue";
 import EditComparisonTable from "@/components/dashboard/editcomponents/EditComparisonTable.vue";
+import EditImageBox from "@/components/dashboard/editcomponents/EditImageBox";
 
 import api from "@/api";
 import EmptyModels from "@/classes/emptyModels";
@@ -80,11 +105,14 @@ export default {
     EditHeaderTitle,
     EditAd,
     EditInfobox,
-    EditComparisonTable
+    EditComparisonTable,
+    EditImageBox
   },
   props: {
     value: [],
-    pageName: String
+    pageName: String,
+    blogName: String,
+    blog: Boolean
   },
   data() {
     return {
@@ -100,7 +128,8 @@ export default {
         "textwithrightpicture",
         "ad",
         "infobox",
-        "comparisontable"
+        "comparisontable",
+        "imagebox"
       ],
       selectedPossibility: ""
     };
@@ -112,7 +141,6 @@ export default {
     openMenu(position) {
       this.creatingStructure = true;
       this.strIndex = position;
-      console.log(this.strIndex);
     },
     resetError() {
       this.creatingStructure = false;
@@ -147,6 +175,8 @@ export default {
           structure = EmptyModels.infobox();
         } else if (this.selectedPossibility === "comparisontable") {
           structure = EmptyModels.comparisonTable();
+        } else if (this.selectedPossibility === "imagebox") {
+          structure = EmptyModels.imageBox();
         } else {
           this.structureCreationErrorText =
             "Please select a Structure-Type (error 2)";
@@ -154,12 +184,22 @@ export default {
           this.creating = false;
           return;
         }
+        let res;
+        if (this.blog) {
+          res = await api.createBlogStructure(
+            this.blogName,
+            this.strIndex + 1,
+            structure
+          );
+        } else {
+          res = await api.createStructure(
+            this.pageName,
+            this.strIndex + 1,
+            structure
+          );
+        }
 
-        let res = await api.createStructure(
-          this.pageName,
-          this.strIndex + 1,
-          structure
-        );
+        console.log(res);
 
         if (res.status === 201) {
           this.value.splice(this.strIndex, 0, res.data);
@@ -177,5 +217,4 @@ export default {
 };
 </script>
 
-<style lang="scss">
-</style>
+<style lang="scss"></style>

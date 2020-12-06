@@ -1,15 +1,15 @@
 <template>
   <v-layout>
-    <div v-if="page === null || page === undefined">
-      <h1>No Page Selected</h1>
+    <div v-if="blog === null || blog === undefined">
+      <h1>No Blog Selected</h1>
     </div>
     <v-layout v-else>
       <v-col>
         <h1>
-          Selected Page with ID {{ page.pageID }} and name {{ page.pageName }}
+          Selected Blog with ID {{ blog.blogId }} and name "{{ blog.blogName }}"
         </h1>
-        <v-btn @click="dialog = true" color="red">Delete this page</v-btn>
-        <v-btn @click="openEditor()" color="orange">Rename this Page</v-btn>
+        <v-btn @click="dialog = true" color="red">Delete this blog</v-btn>
+        <v-btn @click="openEditor()" color="orange">Rename this Blog</v-btn>
         <v-layout align-center v-if="loading">
           <v-row justify="center">
             <v-progress-circular
@@ -21,13 +21,13 @@
         <v-row no-gutters v-else>
           <Content
             :data="renderData"
+            :last-edited="0"
             style="width: 40%;"
-            last-edited="0"
           ></Content>
           <Editor
             v-model="strData"
-            :pageName="page.pageName"
-            :blog="false"
+            :blogName="blog.blogUrl"
+            :blog="true"
             style="width: 60%;"
           ></Editor>
         </v-row>
@@ -36,36 +36,36 @@
         <v-card>
           <v-card-title class="headline"
             >Are you sure you want to delete the complete
-            {{ page.pageName }} page?</v-card-title
-          >
+            {{ blog.blogName }} blog?
+          </v-card-title>
 
-          <v-card-text
-            >These changes will not be revertable! Don't do it if you don't know
-            what you're doing</v-card-text
-          >
+          <v-card-text>
+            These changes will not be revertable! Don't do it if you don't know
+            what you're doing
+          </v-card-text>
 
           <v-card-actions>
             <v-spacer></v-spacer>
 
             <v-btn color="green darken-1" text @click="dialog = false"
-              >Cancel</v-btn
-            >
+              >Cancel
+            </v-btn>
 
-            <v-btn color="red" text @click="deletePage()">Delete</v-btn>
+            <v-btn color="red" text @click="deleteBlog()">Delete</v-btn>
           </v-card-actions>
         </v-card>
       </v-dialog>
-      <v-dialog v-model="editPageName" persistent max-width="600px">
+      <v-dialog v-model="editBlogName" persistent max-width="600px">
         <v-card>
           <v-card-title>
-            <span class="headline">Edit PageName</span>
+            <span class="headline">Edit BlogName</span>
           </v-card-title>
           <v-card-text>
             <v-container>
               <v-col cols="12" sm="6">
                 <v-text-field
-                  label="New PageName"
-                  v-model="newPageName"
+                  label="New BlogName"
+                  v-model="newBlogName"
                   required
                 ></v-text-field>
               </v-col>
@@ -75,11 +75,11 @@
           <v-card-actions>
             <v-spacer></v-spacer>
             <v-btn color="blue darken-1" text @click="closeDialog()"
-              >Close</v-btn
-            >
+              >Close
+            </v-btn>
             <v-btn color="blue darken-1" text @click="saveNewName()"
-              >Save</v-btn
-            >
+              >Save
+            </v-btn>
           </v-card-actions>
         </v-card>
         <v-alert
@@ -87,8 +87,8 @@
           v-model="editNameError"
           transition="scale-transition"
           dismissible
-          >{{ editNameErrorText }}</v-alert
-        >
+          >{{ editNameErrorText }}
+        </v-alert>
       </v-dialog>
     </v-layout>
   </v-layout>
@@ -98,50 +98,68 @@
 import api from "@/api";
 import Content from "@/components/Content";
 import Editor from "@/components/dashboard/Editor";
+
 export default {
   components: {
     Content,
     Editor
   },
-  props: ["page"],
+  async beforeRouteEnter(to, from, next) {
+    let blog = to.params.blog;
+    let info = await api.getBlogInfo(blog);
+    if (info.status === 202) {
+      let res = await api.getBlogStructures(blog);
+      if (res.status === 202) {
+        next(vm => {
+          vm.blog = info.data;
+          vm.strData = res.data ?? [];
+          vm.loading = false;
+        });
+      } else {
+        console.log("Heyho from Blog Resend");
+        next("/404");
+      }
+    } else {
+      console.log("Heyho from Blog Resend");
+      next("/404");
+    }
+  },
   methods: {
-    async deletePage() {
-      console.log(this.page.pageID);
-
-      let res = await api.deletePage(this.page.pageID);
+    async deleteBlog() {
+      let res = await api.deleteBlog(this.blog.blogId);
       if (res.status === 202) {
         this.dialog = false;
-        this.page = null;
+        this.$router.push("/dashboard/editBlogs");
       } else {
         alert("Something went wrong while deleting");
       }
     },
     closeDialog() {
-      this.editPageName = false;
-      this.newPageName = "";
+      this.editBlogName = false;
+      this.newBlogName = "";
       this.editNameErrorText = "";
       this.editNameError = false;
     },
     openEditor() {
-      this.newPageName = this.page.pageName;
-      this.editPageName = true;
+      this.newBlogName = this.blog.blogName;
+      this.editBlogName = true;
     },
     async saveNewName() {
       if (
-        this.newPageName === "" ||
-        this.newPageName === undefined ||
-        this.newPageName === null
+        this.newBlogName === "" ||
+        this.newBlogName === undefined ||
+        this.newBlogName === null
       ) {
-        this.editNameErrorText = "Please provide a valid new PageName";
+        this.editNameErrorText = "Please provide a valid new BlogName";
         this.editNameError = true;
       } else {
-        let req = await api.editPageName(this.page.pageID, this.newPageName);
+        let req = await api.editBlogName(this.blog.blogId, this.newBlogName);
 
         if (req.status === 202) {
-          this.page.pageName = this.newPageName;
+          this.blog.blogName = this.newBlogName;
           this.closeDialog();
         } else if (req.status === 409) {
-          this.editNameErrorText = "This Page does not exist (anymore?)";
+          this.editNameErrorText = "This Blog does not exist (anymore?)";
           this.editNameError = true;
         } else {
           this.editNameErrorText =
@@ -152,32 +170,24 @@ export default {
     }
   },
   watch: {
-    page: async function() {
-      this.loading = true;
-      let res = await api.getStructures(this.page.pageName);
-
-      this.strData = res.data;
-
-      console.log(res.data);
-
-      this.loading = false;
-    },
     strData: function() {
       this.renderData = this.strData.map(currentValue => {
         return currentValue.content;
       });
     }
   },
+
   data() {
     return {
       strData: [],
       loading: true,
       renderData: [],
       dialog: false,
-      editPageName: false,
-      newPageName: "",
+      editBlogName: false,
+      newBlogName: "",
       editNameError: false,
-      editNameErrorText: ""
+      editNameErrorText: "",
+      blog: null
     };
   }
 };

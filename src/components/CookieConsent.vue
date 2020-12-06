@@ -33,61 +33,61 @@ export default {
     // default
     transition: {
       type: String,
-      default: "cookie-consent-transition",
+      default: "cookie-consent-transition"
     },
     message: {
       type: String,
       default:
-        "This website uses cookies to ensure you get the best experience on our website.",
+        "This website uses cookies to ensure you get the best experience on our website."
     },
     // button
     linkLabel: {
       type: String,
-      default: "Learn more",
+      default: "Learn more"
     },
     buttonLabel: {
       type: String,
-      default: "Got it!",
+      default: "Got it!"
     },
     href: {
       type: String,
-      default: "http://cookiesandyou.com",
+      default: "http://cookiesandyou.com"
     },
     target: {
       type: String,
-      default: "_blank",
+      default: "_blank"
     },
     rel: {
       type: String,
-      default: "noopener",
+      default: "noopener"
     },
     // cookie
     cookieName: {
       type: String,
-      default: "cookieconsent_status",
+      default: "cookieconsent_status"
     },
     cookiePath: {
       type: String,
-      default: "/",
+      default: "/"
     },
     cookieDomain: {
       type: String,
-      default: "",
+      default: ""
     },
     cookieExpiryDays: {
       type: Number,
-      default: 365,
-    },
+      default: 365
+    }
   },
   data() {
     return {
-      show: undefined,
+      show: undefined
     };
   },
   computed: {
     cookie() {
       return !this.getCookie(this.cookieName);
-    },
+    }
   },
   beforeMount() {
     this.show = this.cookie;
@@ -121,7 +121,7 @@ export default {
       const cookie = [
         `${name}=${value}`,
         `expires=${exdate.toUTCString()}`,
-        `path=${path || "/"}`,
+        `path=${path || "/"}`
       ];
 
       if (domain) {
@@ -129,8 +129,8 @@ export default {
       }
 
       document.cookie = cookie.join(";");
-    },
-  },
+    }
+  }
 };
 </script>
 <style lang="scss">

@@ -1,31 +1,38 @@
 <template>
-<section>
-  <div class="background">
-    <div class="content">
-      <v-container fluid>
-        <div class="title">
-          <h1>{{ jsonAsJson.tableName }}</h1>
-        </div>
-        <v-simple-table max-height="400px">
-          <template v-slot:default>
-            <thead>
-              <th class="text-left" v-for="title in transformed.columnTitles" :key="title.id">
-                <component :is="title.name" />
-              </th>
-            </thead>
-            <tbody>
-              <tr v-for="(row, index) in transformed.rows" :key="index">
-                <td v-for="(title, index) in transformed.columnTitles" :key="index">
-                  <component :is="row[title.id]" />
-                </td>
-              </tr>
-            </tbody>
-          </template>
-        </v-simple-table>
-      </v-container>
+  <section>
+    <div class="background">
+      <div class="content">
+        <v-container fluid>
+          <div class="title">
+            <h1>{{ jsonAsJson.tableName }}</h1>
+          </div>
+          <v-simple-table max-height="400px">
+            <template v-slot:default>
+              <thead>
+                <th
+                  class="text-left"
+                  v-for="title in transformed.columnTitles"
+                  :key="title.id"
+                >
+                  <component :is="title.name" />
+                </th>
+              </thead>
+              <tbody>
+                <tr v-for="(row, index) in transformed.rows" :key="index">
+                  <td
+                    v-for="(title, index) in transformed.columnTitles"
+                    :key="index"
+                  >
+                    <component :is="row[title.id]" />
+                  </td>
+                </tr>
+              </tbody>
+            </template>
+          </v-simple-table>
+        </v-container>
+      </div>
     </div>
-  </div>
-</section>
+  </section>
 </template>
 
 <script>
@@ -59,5 +66,4 @@ export default {
 };
 </script>
 
-<style lang="scss">
-</style>
+<style lang="scss"></style>

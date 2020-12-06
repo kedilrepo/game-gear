@@ -22,16 +22,16 @@ export default {
   props: {
     title: {
       type: String,
-      required: true,
+      required: true
     },
-    text: String,
+    text: String
   },
   computed: {
     transformed() {
       let transformedText = "<div>" + this.text + "</div>";
       return { template: transformedText };
-    },
-  },
+    }
+  }
 };
 </script>
 

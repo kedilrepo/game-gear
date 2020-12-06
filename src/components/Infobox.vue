@@ -1,7 +1,13 @@
 <template>
   <div class="background">
     <div class="content">
-      <v-alert border="left" color="#167362" dark class="leftTextAlign" type="info">
+      <v-alert
+        border="left"
+        color="#167362"
+        dark
+        class="leftTextAlign"
+        type="info"
+      >
         <p class="zeromargin">
           <component :is="transformed" />
         </p>

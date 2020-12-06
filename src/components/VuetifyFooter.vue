@@ -11,7 +11,8 @@
             rounded
             class="my-2"
             v-on:click="goTo(link.url)"
-          >{{ link.name }}</v-btn>
+            >{{ link.name }}
+          </v-btn>
         </div>
         <v-spacer></v-spacer>
         <div>

@@ -34,9 +34,12 @@
           </v-card-text>
           <v-card-actions>
             <v-spacer></v-spacer>
-            <v-btn color="#009688" @click="login()" :disabled="!formValid || loading"
-              >Login</v-btn
-            >
+            <v-btn
+              color="#009688"
+              @click="login()"
+              :disabled="!formValid || loading"
+              >Login
+            </v-btn>
           </v-card-actions>
         </v-card>
         <v-alert
@@ -44,8 +47,8 @@
           v-model="error"
           transition="scale-transition"
           dismissible
-          >Invalid User</v-alert
-        >
+          >Invalid User
+        </v-alert>
       </v-col>
     </v-row>
   </v-container>
@@ -65,16 +68,17 @@ export default {
       error: false,
       loading: false,
       emailRules: [
-        (v) => !!v || "E-mail is required",
-        (v) => /.+@.+/.test(v) || "E-mail must be valid",
-      ],
+        v => !!v || "E-mail is required",
+        v => /.+@.+/.test(v) || "E-mail must be valid"
+      ]
     };
   },
   methods: {
     async login() {
       this.loading = true;
       var e = await fb.auth
-        .signInWithEmailAndPassword(this.email, this.pw).catch(function(error) {
+        .signInWithEmailAndPassword(this.email, this.pw)
+        .catch(function(error) {
           // Handle Errors here.
           var errorCode = error.code;
           var errorMessage = error.message;
@@ -84,7 +88,7 @@ export default {
           return error;
         });
       console.log(e);
-      if(e.code != null) {
+      if (e.code != null) {
         console.log(e.code);
         console.log("Failed to login");
         this.wrongLogin();
@@ -102,13 +106,12 @@ export default {
         console.log(e);
         this.wrongLogin();
       }
-      
     },
     wrongLogin() {
       this.loading = false;
       this.error = true;
-    },
-  },
+    }
+  }
 };
 /*
 .then(() => {

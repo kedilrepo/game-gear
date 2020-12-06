@@ -1,22 +1,22 @@
 <template>
-<section>
-  <div class="background">
-    <div class="content">
-      <v-flex>
-        <div class="title">
-          <h1>{{ title }}</h1>
-        </div>
-        <div class="details">
-          <div class="leftTextAlign">
-            <p>
-              <component :is="transformed" />
-            </p>
+  <section>
+    <div class="background">
+      <div class="content">
+        <v-flex>
+          <div class="title">
+            <h1>{{ title }}</h1>
           </div>
-          <img :src="imageUrl" />
-        </div>
-      </v-flex>
+          <div class="details">
+            <div class="leftTextAlign">
+              <p>
+                <component :is="transformed" />
+              </p>
+            </div>
+            <img :src="imageUrl" alt=""/>
+          </div>
+        </v-flex>
+      </div>
     </div>
-  </div>
   </section>
 </template>
 
