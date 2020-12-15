@@ -12,7 +12,7 @@
                 <component :is="transformed" />
               </p>
             </div>
-            <img :src="imageUrl" alt=""/>
+            <img :src="imageUrl" alt="" />
           </div>
         </v-flex>
       </div>

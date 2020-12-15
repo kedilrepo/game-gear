@@ -154,7 +154,7 @@ export default {
   async checkUser() {
     let idToken = await this.getIdToken();
 
-    console.log(idToken);
+    // console.log(idToken);
     let req = await this.execute("post", "/admin/user/login", {
       id_token: idToken
     });
