@@ -53,7 +53,8 @@ import {
   mdiAccountBox,
   mdiChevronLeft,
   mdiLogout,
-  mdiBlogger
+  mdiBlogger,
+  mdiFileUpload
 } from "@mdi/js";
 import { mapGetters } from "vuex";
 import firebase from "firebase";
@@ -82,6 +83,11 @@ export default {
           title: "Blog",
           icon: mdiBlogger,
           url: "/dashboard/editBlogs"
+        },
+        {
+          title: "FileUploader",
+          icon: mdiFileUpload,
+          url: "/dashboard/fileUploader"
         }
       ],
       mini: true,
@@ -98,13 +104,13 @@ export default {
   methods: {
     signOut() {
       firebase
-        .auth()
-        .signOut()
-        .then(() => {
-          this.$router.replace({
-            name: "Home"
+          .auth()
+          .signOut()
+          .then(() => {
+            this.$router.replace({
+              name: "Home"
+            });
           });
-        });
     },
     goTo: function(routeName) {
       this.$router.push(routeName.toLowerCase());

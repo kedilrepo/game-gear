@@ -57,6 +57,15 @@ export const routes = [
           )
       },
       {
+        path: "fileUploader",
+        name: "FileUploader",
+        component: () =>
+          import(
+            /*webpackChunkName: "FileUploader" */
+            "@/views/dashboard/FileUploader.vue"
+            )
+      },
+      {
         path: "editBlogs/:blog",
         name: "EditBlog",
         component: () =>

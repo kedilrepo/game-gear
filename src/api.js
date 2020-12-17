@@ -1,12 +1,14 @@
 //import Vue from 'vue';
-import axios from "axios";
+import axios, { post } from "axios";
 import store from "@/store";
 
 const firebase = require("@/firebaseConfig.js");
 
+// const url = "https://api.game-gear.kedil.de";
+const url = "http://192.168.19.66:8082";
+
 const client = axios.create({
-  baseURL: "https://api.game-gear.kedil.de",
-  // baseURL: "http://192.168.19.66:8082",
+  baseURL: url,
   json: true
 });
 
@@ -161,8 +163,18 @@ export default {
 
     return req.status === 202;
   },
+  async uploadFile(formData) {
+    const config = {
+      headers: {
+        "content-type": "multipart/form-data",
+        Authorization: "Bearer " + (await this.getIdToken())
+      }
+    };
+
+    return post(url + "/admin/manage/upload", formData, config);
+  },
   async getIdToken() {
-    var idToken;
+    let idToken;
 
     if (
       store.getters.user.data === null ||
