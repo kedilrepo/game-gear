@@ -4,8 +4,8 @@ import store from "@/store";
 
 const firebase = require("@/firebaseConfig.js");
 
-// const url = "https://api.game-gear.kedil.de";
-const url = "http://192.168.19.66:8082";
+const url = "https://api.game-gear.kedil.de";
+// const url = "http://192.168.19.66:8082";
 
 const client = axios.create({
   baseURL: url,
@@ -172,6 +172,10 @@ export default {
     };
 
     return post(url + "/admin/manage/upload", formData, config);
+  },
+  async getFiles() {
+    await this.setAuthHeader();
+    return await this.execute("get", "/admin/manage/files");
   },
   async getIdToken() {
     let idToken;

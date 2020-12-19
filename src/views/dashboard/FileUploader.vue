@@ -2,15 +2,38 @@
   <section v-cloak @drop.prevent="dropFile" @dragover.prevent>
     <h2>Files to Upload (Drag them over)</h2>
     <input type="file" @input="selectFile" />
-    <li v-if="file !== null">
+    <li v-if="file != null">
       {{ file.name }} ({{ file.size | kb }} kb)
       <button @click="removeFile(file)" title="Remove">X</button>
     </li>
     <p v-if="file !== null">Preview</p>
-    <img :src="imageUrl" alt="preview" v-if="file !== null"/>
+    <img :src="imageUrl" alt="preview" v-if="file !== null" />
     <p class="failure">{{ errorString }}</p>
     <p class="success">{{ successString }}</p>
     <button :disabled="uploadDisabled" @click="upload">Upload</button>
+
+    <v-simple-table max-height="400px" v-if="files.length !== 0">
+      <template v-slot:default>
+        <thead>
+          <th>
+            Filename
+          </th>
+          <th>
+            URL
+          </th>
+        </thead>
+        <tbody>
+          <tr v-for="(file, index) in files" :key="index">
+            <td>
+              {{ file.fileName }}
+            </td>
+            <td>
+              {{ file.url }}
+            </td>
+          </tr>
+        </tbody>
+      </template>
+    </v-simple-table>
   </section>
 </template>
 
@@ -24,7 +47,8 @@ export default {
       file: null,
       errorString: "",
       successString: "",
-      imageUrl: ""
+      imageUrl: "",
+      files: []
     };
   },
   computed: {
@@ -32,9 +56,16 @@ export default {
       return this.files === null;
     }
   },
+  mounted() {
+    this.loadFiles();
+  },
   methods: {
+    async loadFiles() {
+      let res = await api.getFiles();
+      this.files = res.data.files;
+    },
     addFile(file) {
-
+      this.successString = "";
       this.file = file;
       this.imageUrl = URL.createObjectURL(this.file);
     },
@@ -70,6 +101,7 @@ export default {
       this.successString = `Uploaded at: ${res.data.url}`;
       this.errorString = "";
       this.file = null;
+      await this.loadFiles();
     },
     getExtension(filename) {
       const parts = filename.split(".");
