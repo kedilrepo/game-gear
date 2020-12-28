@@ -72,7 +72,6 @@ img {
 
   @media (min-width: $mobileWidth) {
     height: auto;
-    width: 100;
     max-width: 400px;
     max-height: 600px;
   }
